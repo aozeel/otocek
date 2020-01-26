@@ -14,10 +14,8 @@ class FifthPage extends StatelessWidget {
             appBar: AppBar(
               title: Text(title),
               backgroundColor: Colors.amber,
-            ),
-            
-            body:
-            new ExpansionTile(
+            ), 
+            body: ExpansionTile(
               title: new Text(foos),
               backgroundColor: Theme.of(context).accentColor.withOpacity(0.025),
               children: <Widget>[
@@ -30,7 +28,7 @@ class FifthPage extends StatelessWidget {
                   title: Text('Destek Al'),
                 ),
                 ListTile(
-                  leading: Icon(Icons.book),
+                  leading: Icon(Icons.description),
                   title: Text('Hakkımızda'),
                 ),
                 ListTile(
@@ -42,13 +40,18 @@ class FifthPage extends StatelessWidget {
                   title: Text('Çıkış Yap'),
                 ),
               ]
-            ),
+            )
+            
+            , 
+            
+           // body:
+            
           
           ),
         );
       }
     
-      Widget addProfile() {
+      Widget addProfilee() {
        return new Container(
     width: 200,
     child: Card(
@@ -85,3 +88,4 @@ class FifthPage extends StatelessWidget {
   );
       }
 }
+//değişiklik yaptım
