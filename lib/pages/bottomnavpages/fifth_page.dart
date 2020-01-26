@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 class FifthPage extends StatelessWidget {
   const FifthPage({Key key}) : super(key: key);
 
+  
+
   @override
   Widget build(BuildContext context) {
     final foos = 'Genel';
@@ -15,7 +17,8 @@ class FifthPage extends StatelessWidget {
               title: Text(title),
               backgroundColor: Colors.amber,
             ), 
-            body: ExpansionTile(
+            body:
+             ExpansionTile(
               title: new Text(foos),
               backgroundColor: Theme.of(context).accentColor.withOpacity(0.025),
               children: <Widget>[
@@ -40,15 +43,12 @@ class FifthPage extends StatelessWidget {
                   title: Text('Çıkış Yap'),
                 ),
               ]
-            )
-            
-            , 
-            
-           // body:
-            
+            ),
+                                 
           
-          ),
-        );
+          ));
+      
+        
       }
     
       Widget addProfilee() {
