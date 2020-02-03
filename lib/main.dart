@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:newflutter/pages/homepages.dart';
+import 'package:newflutter/pages/loginpages/login_page.dart';
 
 void main() => runApp(MyApp());
 
@@ -12,7 +12,7 @@ class MyApp extends StatelessWidget {
       theme: new ThemeData(
         primarySwatch: Colors.amber,
       ),
-      home: new HomePage(),
+      home: new GirisEkrani(),
     );
  
   }

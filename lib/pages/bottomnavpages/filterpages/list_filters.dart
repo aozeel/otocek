@@ -65,12 +65,5 @@ class FiltrelemeDuzenleState extends State<FiltrelemeDuzenleFul> {
         );
       }
       );
-        
-      
-    ListView(
-      children: <Widget>[
-        //,
-      ],
-    );
   }
 }

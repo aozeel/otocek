@@ -48,8 +48,7 @@ class ThirdPage extends StatelessWidget {
               MaterialPageRoute(         //Modelleri oluştur
                   builder: (context) => modelBuild(context, index,Markalar[index]),
                   ),
-            );
-            
+            );      
             }
         );
       }),
