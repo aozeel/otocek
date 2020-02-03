@@ -44,7 +44,10 @@ class _AppBottomNavigationBarControllerState
 
 
     Widget _bottomNavigationBar(int selectedIndex)=>FancyBottomNavigation(
-      
+      circleColor: Colors.amber,
+      activeIconColor: Colors.white,
+      barBackgroundColor: Colors.white,
+      inactiveIconColor: Colors.amber,
 
           tabs: [
        TabData(iconData: Icons.drive_eta, title: "Anasayfa"),

@@ -34,12 +34,24 @@ class FourthPage extends StatelessWidget {
   }
 
   Widget _getItemUI(BuildContext context, int index) {
-    return new Container(
+    final item=_allCities[index].name;
+    return Dismissible(
+      key:Key(item),
+      onDismissed: (direction) {
+                // Remove the item from the data source.
+                  _allCities.removeAt(index);
+                // Then show a snackbar.
+                Scaffold.of(context)
+                    .showSnackBar(SnackBar(content: Text("$item kaldırıldı")));
+      },
+      background: Container(color: Colors.red),
+      child:
+      new Container(
           margin:EdgeInsets.all(8.0),
-          child: Card(
+          child:Card(
             shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(8.0))),
             child: InkWell(
-              onTap: () => print("ciao"),
+              onTap: () => print(index),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,  // add this
                 children: <Widget>[
@@ -59,7 +71,7 @@ class FourthPage extends StatelessWidget {
                   ListTile(
                     
                     title: Text(_allCities[index].name),
-                    subtitle: Text(_allCities[index].population),
+                    //subtitle: Text(_allCities[index].population),
                   ),
                   Row(
                    // mainAxisSize: MainAxisSize.max,
@@ -67,7 +79,8 @@ class FourthPage extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
 
                     children: [
-                      Text(_allCities[index].country),
+                      Text(_allCities[index].country,style: TextStyle(backgroundColor: Colors.amber),),
+                      Text("2005"),
                       Text("2005"),
                               ],
                               
@@ -77,7 +90,9 @@ class FourthPage extends StatelessWidget {
                 ],
               ),
             ),
-          ),
-        );
+          ), )
+
+    );
+      
   }
 }

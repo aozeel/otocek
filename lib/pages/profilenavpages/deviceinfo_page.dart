@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
 
-class SecondPage extends StatelessWidget {
-  const SecondPage({Key key}) : super(key: key);
+
+
+class DeviceinfoPage extends StatelessWidget {
+  const DeviceinfoPage({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Second Screen"),
+        title: Text("Cihaz Bilgisi"),
       ),
       body: ListView.builder(itemBuilder: (context, index) {
         return ListTile(
-          //leading: Icon(Icons.drive_eta),
-          title: Text('Title'),
+          title: Text('Lorem Ipsum'),
           subtitle: Text('$index'),
         );
       }),
