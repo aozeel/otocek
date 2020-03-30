@@ -27,8 +27,8 @@ class MyApp extends StatelessWidget {
         theme: new ThemeData(
           primarySwatch: Colors.amber,
         ),
-//        home:LandingPage()
-      home: HomePage(user: null,),
+        home:LandingPage()
+//      home: HomePage(user: null,),
         ),
     );
   }
