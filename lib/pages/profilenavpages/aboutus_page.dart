@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:newflutter/utils/const.dart';
 
 
 
@@ -29,7 +30,7 @@ class AboutusPage extends StatelessWidget {
                 Text(
                   'İstanbul, Türkiye',
                   style: TextStyle(
-                    color: Colors.grey[500],
+                    color: Constants.grey500,
                   ),
                 ),
               ],
@@ -71,7 +72,7 @@ class AboutusPage extends StatelessWidget {
       home: Scaffold(
         appBar: AppBar(
           title: Text('Hakkımızda'),
-          backgroundColor: Colors.amber,
+          backgroundColor: Constants.primaryColor,
         ),
         body: ListView(
           children: [

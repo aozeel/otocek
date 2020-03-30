@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "181669472622",
+    "firebase_url": "https://arabacek-a30cd.firebaseio.com",
+    "project_id": "arabacek-a30cd",
+    "storage_bucket": "arabacek-a30cd.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:181669472622:android:f680810743faacaa7e797f",
+        "android_client_info": {
+          "package_name": "com.example.newflutter"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "181669472622-53n8cbq795r2q78jfah407lpgcngajuf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCWsdWcnKzvs8ur-kKuTEaSC7H6LFQPDpY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "181669472622-53n8cbq795r2q78jfah407lpgcngajuf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

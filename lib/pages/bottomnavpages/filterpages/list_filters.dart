@@ -1,26 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:newflutter/model/filtre.dart';
+//import 'package:newflutter/model/filtre.dart';
+import 'package:newflutter/model/filtredb.dart';
+import 'package:newflutter/utils/const.dart';
+import 'package:newflutter/utils/database_helper.dart';
+import 'package:sqflite/sqflite.dart';
 
 class FiltrelemeDuzenle extends StatelessWidget {
-  static String gelenMarka,gelenModel; static int minFiyat,maxFiyat,minYil, maxYil;
-  static final List<Filtre> _lstofFiltres = Filtre.allFiltres();
-
-  FiltrelemeDuzenle.filtreekle(String gelenMarka1,String gelenModel1, int minFiyat1, int maxFiyat1, int minYil1, int maxYil1){
-    gelenMarka=gelenMarka1;gelenModel=gelenModel1;minFiyat=minFiyat1;maxFiyat=maxFiyat1;minYil=minYil1;maxYil=maxYil1;
-
-    _lstofFiltres.add(new Filtre(marka:gelenMarka,model:gelenModel,minFiyat:minFiyat,maxFiyat:maxFiyat,minYil:minYil,maxYil:maxYil,isActive: true));
-
-  }
-
-FiltrelemeDuzenle(){}
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'My App',
       home: Scaffold(
-        appBar: AppBar(title: Text('Filtrelerim'),backgroundColor: Colors.amber,),
+        appBar: AppBar(
+          title: Text(Constants.myfilter),
+          backgroundColor: Constants.primaryColor,
+        ),
         body: FiltrelemeDuzenleFul(),
       ),
     );
@@ -33,37 +28,137 @@ class FiltrelemeDuzenleFul extends StatefulWidget {
 }
 
 class FiltrelemeDuzenleState extends State<FiltrelemeDuzenleFul> {
+  DatabaseHelper databaseHelper = DatabaseHelper();
+  static List<Filtredb> _lstofFiltres;
+  int count = 0;
+
   @override
   Widget build(BuildContext context) {
+    if(this.mounted){
+      setState(() {
+        updateFiltreListView();
+      });
+    }
+
+
+   if (_lstofFiltres == null) {
+      _lstofFiltres = List<Filtredb>();
+      updateFiltreListView();
+    }
+
     return ListView.builder(
-      itemCount:FiltrelemeDuzenle._lstofFiltres.length,
-      itemBuilder: (context,index){
-        return ListTile(
-          title: Text(
-            FiltrelemeDuzenle._lstofFiltres[index].marka +" "+FiltrelemeDuzenle._lstofFiltres[index].model,//FiltrelemeDuzenle.gelenMarka
-            style: TextStyle(color: Colors.black),
-          ),
-          subtitle: Text(
-            "Fiyat="+FiltrelemeDuzenle._lstofFiltres[index].minFiyat.toString()+"-"+ FiltrelemeDuzenle._lstofFiltres[index].maxFiyat.toString()+" / "+
-            "Yıl="+FiltrelemeDuzenle._lstofFiltres[index].minYil.toString()+"-"+FiltrelemeDuzenle._lstofFiltres[index].maxYil.toString(),
-            style: TextStyle(color: Colors.black),
-          ),
-          trailing: Switch(
-            value: FiltrelemeDuzenle._lstofFiltres[index].isActive,
-            onChanged: (value) {
-              setState(() {
-                FiltrelemeDuzenle._lstofFiltres[index].isActive = value;
-              });
+        itemCount: count, //_lstofFiltres.length,
+        itemBuilder: (context, index) {
+          return ListTile(
+            title: Text(
+              _lstofFiltres[index].marka +
+                  " " +
+                  _lstofFiltres[index].model, //FiltrelemeDuzenle.gelenMarka
+              style: TextStyle(color: Constants.black,),
+            ),
+            subtitle: Text(
+              "Fiyat=" +
+                  _lstofFiltres[index].minFiyat.toString() +
+                  "-" +
+                  _lstofFiltres[index].maxFiyat.toString() +
+                  " / " +
+                  "Yıl=" +
+                  _lstofFiltres[index].minYil.toString() +
+                  "-" +
+                  _lstofFiltres[index].maxYil.toString(),
+              style: TextStyle(color: Constants.black,),
+            ),
+            trailing: Row(mainAxisSize: MainAxisSize.min, children: <Widget>[
+              GestureDetector(
+                onTap: () {
+                  if(this.mounted){
+                    setState(() {
+                      //Delete Button for delete filtre from database
+                      deleteFiltre(_lstofFiltres[index].id, index);
+                    });
+                  }
+
+
+                },
+                child: Icon(Icons.delete, color: Constants.redAccent,),
+              ),
+              Switch(
+                value: getbool(_lstofFiltres[index].isActive),
+                onChanged: (bool newvalue) {
+                  if(this.mounted){
+                    setState(() {
+                      //Click switch to update filter database(active-passive)
+                      _lstofFiltres[index].isActive = convertBool(newvalue);
+                      updateFiltre(_lstofFiltres[index]);
+                    });
+                  }
+
+
+                },
+                activeTrackColor: Constants.lightGreenAccent,
+                activeColor: Constants.green,
+              ),
+            ]),
+            onTap: () {
+              print('horse');
             },
-            activeTrackColor: Colors.lightGreenAccent,
-            activeColor: Colors.green,
-          ),
-          onTap: () {
-            print('horse');
-          },
-          selected: true,
-        );
-      }
-      );
+            selected: true,
+          );
+        });
+  }
+
+  void updateFiltreListView() {
+    final Future<Database> dbFuture = databaseHelper.initializeDatabase();
+    dbFuture.then((database) {
+      Future<List<Filtredb>> filtreListFuture = databaseHelper.getFiltreList();
+      filtreListFuture.then((_lstofFiltres) {
+        if(this.mounted){
+          setState(() {
+            FiltrelemeDuzenleState._lstofFiltres = _lstofFiltres;
+            this.count = _lstofFiltres.length;
+          });
+        }
+      });
+    });
+  }
+
+  bool getbool(int deger) {
+    switch (deger) {
+      case 0:
+        return false;
+        break;
+
+      case 1:
+        return true;
+        break;
+
+      default:
+        return true;
+    }
+  }
+
+  int convertBool(bool value) {
+    switch (value) {
+      case false:
+        return 0;
+        break;
+
+      case true:
+        return 1;
+        break;
+    }
+  }
+
+  void updateFiltre(Filtredb filtredb) async {
+    await databaseHelper.updateFilt(filtredb);
+  }
+
+  void deleteFiltre(int id, int index) async {
+    await databaseHelper.deleteFiltre(id);
+    updateFiltreListView();
+  }
+  static Future<List<Filtredb>> getfiltreler()async{
+    
+    return FiltrelemeDuzenleState._lstofFiltres;
   }
 }

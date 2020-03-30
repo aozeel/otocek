@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:newflutter/pages/homepages.dart';
+import 'package:newflutter/model/user.dart';
+import 'package:newflutter/utils/const.dart';
+import 'package:newflutter/viewmodel/usermodel.dart';
+import 'package:provider/provider.dart';
+
+import 'login_page.dart';
 
 class KayitOl extends StatefulWidget {
   @override
@@ -8,12 +12,21 @@ class KayitOl extends StatefulWidget {
 }
 
 class KayitOlState extends State<KayitOl> {
-  final TextEditingController _usernameControl = new TextEditingController();
+  final TextEditingController _namesurnameControl = new TextEditingController();
   final TextEditingController _emailControl = new TextEditingController();
   final TextEditingController _passwordControl = new TextEditingController();
 
+
+  void _emailVeSifreIleKayitOl(String email,String password) async{
+    final _usermodel=Provider.of<UserModel>(context,listen: false);
+    User _user=await _usermodel.createUserWithEmailAndPassword(email, password,_namesurnameControl.text.toString());
+    if(_user !=null)
+      print("Oturum açan user id:" + _user.userID.toString());
+  }
+
   @override
   Widget build(BuildContext context) {
+    final _usermodel=Provider.of<UserModel>(context,listen: false);
     return Padding(
       padding: EdgeInsets.fromLTRB(20.0,0,20,0),
       child: ListView(
@@ -27,7 +40,7 @@ class KayitOlState extends State<KayitOl> {
             elevation: 3.0,
             child: Container(
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: Constants.white,
                 borderRadius: BorderRadius.all(
                   Radius.circular(5.0),
                 ),
@@ -41,24 +54,24 @@ class KayitOlState extends State<KayitOl> {
                   contentPadding: EdgeInsets.all(10.0),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(5.0),
-                    borderSide: BorderSide(color: Colors.white,),
+                    borderSide: BorderSide(color: Constants.white,),
                   ),
                   enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.white,),
+                    borderSide: BorderSide(color: Constants.black,),
                     borderRadius: BorderRadius.circular(5.0),
                   ),
-                  hintText: "Kullanıcı Adı Giriniz",
+                  hintText: "Ad Soyad Giriniz",
                   prefixIcon: Icon(
                     Icons.perm_identity,
-                    color: Colors.black,
+                    color: Constants.black,
                   ),
                   hintStyle: TextStyle(
                     fontSize: 15.0,
-                    color: Colors.black,
+                    color: Constants.black,
                   ),
                 ),
                 maxLines: 1,
-                controller: _usernameControl,
+                controller: _namesurnameControl,
               ),
             ),
           ),
@@ -69,7 +82,7 @@ class KayitOlState extends State<KayitOl> {
             elevation: 3.0,
             child: Container(
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: Constants.white,
                 borderRadius: BorderRadius.all(
                   Radius.circular(5.0),
                 ),
@@ -77,26 +90,27 @@ class KayitOlState extends State<KayitOl> {
               child: TextField(
                 style: TextStyle(
                   fontSize: 15.0,
-                  color: Colors.black,
+                  color: Constants.black,
                 ),
                 decoration: InputDecoration(
+                  errorText: _usermodel.emailHataMesaji !=null ? _usermodel.emailHataMesaji:null,
                   contentPadding: EdgeInsets.all(10.0),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(5.0),
-                    borderSide: BorderSide(color: Colors.white,),
+                    borderSide: BorderSide(color: Constants.white,),
                   ),
                   enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.white,),
+                    borderSide: BorderSide(color: Constants.white,),
                     borderRadius: BorderRadius.circular(5.0),
                   ),
                   hintText: "E-posta Adresi Giriniz",
                   prefixIcon: Icon(
                     Icons.mail_outline,
-                    color: Colors.black,
+                    color: Constants.black,
                   ),
                   hintStyle: TextStyle(
                     fontSize: 15.0,
-                    color: Colors.black,
+                    color: Constants.black,
                   ),
                 ),
                 maxLines: 1,
@@ -119,26 +133,27 @@ class KayitOlState extends State<KayitOl> {
               child: TextField(
                 style: TextStyle(
                   fontSize: 15.0,
-                  color: Colors.black,
+                  color: Constants.black,
                 ),
                 decoration: InputDecoration(
+                  errorText: _usermodel.sifreHataMEsaji !=null ? _usermodel.sifreHataMEsaji:null,
                   contentPadding: EdgeInsets.all(10.0),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(5.0),
-                    borderSide: BorderSide(color: Colors.white,),
+                    borderSide: BorderSide(color: Constants.white,),
                   ),
                   enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.white,),
+                    borderSide: BorderSide(color: Constants.white,),
                     borderRadius: BorderRadius.circular(5.0),
                   ),
                   hintText: "Şifre Giriniz",
                   prefixIcon: Icon(
                     Icons.lock_outline,
-                    color: Colors.black,
+                    color:Constants.black,
                   ),
                   hintStyle: TextStyle(
                     fontSize: 15.0,
-                    color: Colors.black,
+                    color: Constants.black,
                   ),
                 ),
                 obscureText: true,
@@ -157,18 +172,10 @@ class KayitOlState extends State<KayitOl> {
               child: Text(
                 "Kayıt Ol".toUpperCase(),
                 style: TextStyle(
-                  color: Colors.white,
+                  color: Constants.white,
                 ),
               ),
-              onPressed: (){
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (BuildContext context){
-                      return HomePage();
-                    },
-                  ),
-                );
-              },
+              onPressed: () => _emailVeSifreIleKayitOl(_emailControl.text, _passwordControl.text),
               color: Theme.of(context).accentColor,
             ),
           ),
@@ -178,44 +185,6 @@ class KayitOlState extends State<KayitOl> {
           SizedBox(height: 10.0),
 
 
-          Center(
-            child: Container(
-              width: MediaQuery.of(context).size.width/2,
-              child: Row(
-                children: <Widget>[
-                  RawMaterialButton(
-                    onPressed: (){},
-                    fillColor: Colors.blue[800],
-                    shape: CircleBorder(),
-                    elevation: 4.0,
-                    child: Padding(
-                      padding: EdgeInsets.all(15),
-                      child: Icon(
-                        FontAwesomeIcons.facebookF,
-                        color: Colors.white,
-//              size: 24.0,
-                      ),
-                    ),
-                  ),
-
-                  RawMaterialButton(
-                    onPressed: (){},
-                    fillColor: Colors.white,
-                    shape: CircleBorder(),
-                    elevation: 4.0,
-                    child: Padding(
-                      padding: EdgeInsets.all(15),
-                      child: Icon(
-                        FontAwesomeIcons.google,
-                        color: Colors.blue[800],
-//              size: 24.0,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
 
           SizedBox(height: 20.0),
 
