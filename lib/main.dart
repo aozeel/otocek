@@ -3,6 +3,7 @@ import 'package:newflutter/deneme.dart';
 import 'package:newflutter/pages/deneme.dart';
 import 'package:newflutter/pages/homepages.dart';
 import 'package:newflutter/pages/loginpages/landing_page.dart';
+import 'package:newflutter/pages/splashpages/walkthrough.dart';
 import 'package:newflutter/services/firebase_auth_service.dart';
 import 'package:newflutter/services/locator.dart';
 import 'package:newflutter/viewmodel/usermodel.dart';

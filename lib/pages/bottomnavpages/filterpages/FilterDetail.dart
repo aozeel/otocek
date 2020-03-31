@@ -113,6 +113,9 @@ class _FilterDetailState extends State<FilterDetail> {
   int maxFiyat = 1000000;
   int minYil = 1900;
   int maxYil = 3000;
+  String km="100.000 km";
+  String fuel="Benzin";
+  String transmission="Otomatik";
 
   final List<DropdownMenuItem> city_items = [];
   final List<DropdownMenuItem> town_items = [];
@@ -208,7 +211,7 @@ class _FilterDetailState extends State<FilterDetail> {
               }
 
               databaseHelper.insertFiltre(new Filtredb(widget.gelenMarka,
-                  widget.gelenModel, minFiyat, maxFiyat, minYil, maxYil, 1));
+                  widget.gelenModel, minFiyat, maxFiyat, minYil, maxYil, 1,"100.000 km","Benzin","Otomatik","115hp","Beyaz"));
 
               Navigator.push(
                 context,

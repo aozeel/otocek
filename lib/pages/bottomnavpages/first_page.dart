@@ -48,11 +48,11 @@ class FirstPageState extends State<FirstPage> {
     }
 
     //listeleme yok ise gelen sayfa
-    if (carList.length <=
-        0 /* && FiltrelemeDuzenleState.lengthofFilter()<= 0*/) {
+    if (carList.length <= 0 /* && FiltrelemeDuzenleState.lengthofFilter()<= 0*/) {
       return _buildEmptyFilter();
     }
-    return Scaffold(appBar: AppBar(
+    return Scaffold(
+        appBar: AppBar(
         title: Text("OtoÇek"),
         actions: <Widget>[
           PopupMenuButton<Choice>(
@@ -121,7 +121,7 @@ class FirstPageState extends State<FirstPage> {
 
   Widget _buildListView() {
     return Container(
-      margin: EdgeInsets.only(top: 40.0),
+      margin: EdgeInsets.only(top: 10.0),
       child: ListView.builder(
         padding: const EdgeInsets.all(5.0),
         itemCount: carList.length,
@@ -172,7 +172,6 @@ class FirstPageState extends State<FirstPage> {
             child: _buildImageColumn(index),
           );
         },
-
       ),
     );
   }
@@ -199,7 +198,7 @@ class FirstPageState extends State<FirstPage> {
       ),
     ),
     child: Container(
-          child: Container(
+            color: Colors.grey[200],
             child: Row(
               children: <Widget>[
                 Expanded(
@@ -216,52 +215,151 @@ class FirstPageState extends State<FirstPage> {
                 ),
                 Expanded(
                   flex: 3,
-                  child: Column(
-                    children: <Widget>[
-                      Container(
-                        padding: EdgeInsets.all(4),
-                        color: Constants.primaryColor,
-                        child: Text(
-                          fmf
-                              .copyWith(
-                              amount: carList[index].price, fractionDigits: 3)
-                              .output
-                              .nonSymbol +
-                              " TL",
-                          style: TextStyle(color:Constants.white,),
+                  child: Container(
+                    child: Column(
+                      children: <Widget>[
+//                      Container(
+//                        padding: EdgeInsets.all(4),
+//                        color: Constants.primaryColor,
+//                        child: Text(
+//                          fmf
+//                              .copyWith(
+//                              amount: carList[index].price, fractionDigits: 3)
+//                              .output
+//                              .nonSymbol +
+//                              " TL",
+//                          style: TextStyle(color:Constants.white,),
+//                        ),
+//                      ),
+                        Container(
+                          margin: const EdgeInsets.all(4),
+                          child: Center(
+                            child: Text(
+                              fmf
+                                  .copyWith(
+                                  amount: carList[index].price, fractionDigits: 3)
+                                  .output
+                                  .nonSymbol +
+                                  " TL",
+                              style: TextStyle(color:Constants.white,),
+                            ),
+                          ),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: Constants.primaryColor,
+                            boxShadow: [
+                              BoxShadow(
+                                  color: Constants.primaryColor, spreadRadius: 3),
+                            ],
+                          ),
                         ),
-                      ),
-                      SizedBox(height: 8,),
-                      Container(
-                        padding: EdgeInsets.all(4),
-                        color: Constants.primaryColor,
-                        child: Text("250.000 KM",
-                          style: TextStyle(color:Constants.white,),
+                        SizedBox(height: 8,),
+//                      Container(
+//                        padding: EdgeInsets.all(4),
+//                        color: Constants.primaryColor,
+//                        child: Text("250.000 KM",
+//                          style: TextStyle(color:Constants.white,),
+//                        ),
+//                      ),
+                        Container(
+                          margin: const EdgeInsets.all(4),
+                          child: Center(
+                            child: Text(
+                              carList[index].km,
+                              style: TextStyle(color: Constants.white,),
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: Constants.primaryColor,
+                            boxShadow: [
+                              BoxShadow(color: Constants.primaryColor, spreadRadius: 3),
+                            ],
+                          ),
                         ),
-                      ),
-                      SizedBox(height: 8,),
-                      Container(
-                        padding: EdgeInsets.all(4),
-                        color: Constants.primaryColor,
-                        child: Text("Benzin",
-                          style: TextStyle(color:Constants.white,),
+                        SizedBox(height: 8,),
+                        Container(
+                          margin: const EdgeInsets.all(4),
+                          child: Center(
+                            child: Text(
+                              carList[index].Fuel,
+                              style: TextStyle(color: Constants.white,),
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: Constants.primaryColor,
+                            boxShadow: [
+                              BoxShadow(
+                                  color: Constants.primaryColor, spreadRadius: 3),
+                            ],
+                          ),
                         ),
-                      ),
-                      SizedBox(height: 8,),
-                      Container(
-                        padding: EdgeInsets.all(4),
-                        color: Constants.primaryColor,
-                        child: Text("Otomatik",
-                          style: TextStyle(color:Constants.white,),
+                        SizedBox(height: 8,),
+                        Container(
+                          margin: const EdgeInsets.all(4),
+                          child: Center(
+                            child: Text(
+                              carList[index].Transmission,
+                              style: TextStyle(color: Constants.white,),
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: Constants.primaryColor,
+                            boxShadow: [
+                              BoxShadow(
+                                  color: Constants.primaryColor, spreadRadius: 3),
+                            ],
+                          ),
                         ),
-                      ),
-                    ],
+                        SizedBox(height: 8,),
+                        Container(
+                          margin: const EdgeInsets.all(4),
+                          child: Center(
+                            child: Text(
+                              carList[index].hp,
+                              style: TextStyle(color: Constants.white,),
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: Constants.primaryColor,
+                            boxShadow: [
+                              BoxShadow(
+                                  color: Constants.primaryColor, spreadRadius: 3),
+                            ],
+                          ),
+                        ),
+                        SizedBox(height: 8,),
+                        Container(
+                          margin: const EdgeInsets.all(4),
+                          child: Center(
+                            child: Text(
+                              carList[index].color,
+                              style: TextStyle(color: Constants.white,),
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: Constants.primaryColor,
+                            boxShadow: [
+                              BoxShadow(
+                                  color: Constants.primaryColor, spreadRadius: 3),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
                   )
                 ),
               ],
             ),
-          ),
-
         ),
   );
 

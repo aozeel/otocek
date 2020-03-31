@@ -20,6 +20,11 @@ class DatabaseHelper{
   String colYear = 'year';
   String colLogo = 'logo';
   String colLinkDetay = 'link_detay';
+  String colKm='km';
+  String colfuel='fuel';
+  String coltransmission='transmission';
+  String colhp='hp';
+  String colcolor='color';
 
   String filtreTable = 'filtre_table';
 
@@ -65,13 +70,13 @@ class DatabaseHelper{
   void _createDb(Database db, int newVersion) async {
 
 		await db.execute('CREATE TABLE $carTable($colId INTEGER PRIMARY KEY AUTOINCREMENT, $colTitle TEXT, '
-				'$colImage TEXT, $colPrice DOUBLE, $colLocation TEXT, $colModel TEXT,$colYear TEXT, $colLogo TEXT, $colLinkDetay TEXT)');
+				'$colImage TEXT, $colPrice DOUBLE, $colLocation TEXT, $colModel TEXT,$colYear TEXT, $colLogo TEXT, $colLinkDetay TEXT, $colKm TEXT,$colfuel TEXT,$coltransmission TEXT,$colhp TEXT,$colcolor TEXT)');
 
     await db.execute('CREATE TABLE $filtreTable($colId INTEGER PRIMARY KEY AUTOINCREMENT, $colMarka TEXT, '
-    '$colModel TEXT, $colMinFiyat INTEGER, $colMaxFiyat INTEGER, $colMinYil INTEGER, $colMaxYil INTEGER, $colIsActive INTEGER)');
+    '$colModel TEXT, $colMinFiyat INTEGER, $colMaxFiyat INTEGER, $colMinYil INTEGER, $colMaxYil INTEGER, $colIsActive INTEGER,$colLinkDetay TEXT, $colKm TEXT,$colfuel TEXT,$coltransmission TEXT,$colhp TEXT,$colcolor TEXT)');
 
     await db.execute('CREATE TABLE $favTable ($colId INTEGER PRIMARY KEY AUTOINCREMENT, $colTitle TEXT, '
-				'$colImage TEXT, $colPrice DOUBLE, $colLocation TEXT, $colModel TEXT,$colYear TEXT, $colLogo TEXT, $colLinkDetay TEXT)');
+				'$colImage TEXT, $colPrice DOUBLE, $colLocation TEXT, $colModel TEXT,$colYear TEXT, $colLogo TEXT, $colLinkDetay TEXT,$colKm TEXT,$colfuel TEXT,$coltransmission TEXT,$colhp TEXT,$colcolor TEXT)');
 	}
 
 

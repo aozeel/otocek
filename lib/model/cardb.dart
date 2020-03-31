@@ -8,9 +8,14 @@ class Cardb{
   String _year;
   String _logo;
   String _link_detay;
+  String _km;
+  String _fuel;
+  String _transmission;
+  String _hp;
+  String _color;
 
-  Cardb(this._image,this._price,this._title,this._location,this._model,this._year,this._logo,this._link_detay);
-  Cardb.withId(this._id,this._image,this._price,this._title,this._location,this._model,this._year,this._logo,this._link_detay);
+  Cardb(this._image,this._price,this._title,this._location,this._model,this._year,this._logo,this._link_detay,this._km,this._fuel,this._transmission,this._hp,this._color);
+  Cardb.withId(this._id,this._image,this._price,this._title,this._location,this._model,this._year,this._logo,this._link_detay,this._km,this._fuel,this._transmission,this._hp,this._color);
 
   int get id => _id;
 
@@ -29,6 +34,12 @@ class Cardb{
   String get logo => _logo;
 
   String get link_detay => _link_detay;
+
+  String get km => _km;
+
+  set km(String value) {
+    _km = value;
+  }
 
   set date(String newimage) {
 		this._image = newimage;
@@ -55,7 +66,44 @@ class Cardb{
     this._link_detay=newlink_detay;
   }
 
-  // Convert a Note object into a Map object
+  String get fuel => _fuel;
+
+  set fuel(String value) {
+    _fuel = value;
+  }// Convert a Note object into a Map object
+
+
+  String get Fuel => _fuel;
+
+  String get Transmission => _transmission;
+
+  set Transmission(String value) {
+    _transmission = value;
+  }
+
+  set Fuel(String value) {
+    _fuel = value;
+  }
+
+  String get transmission => _transmission;
+
+  String get color => _color;
+
+  set color(String value) {
+    _color = value;
+  }
+
+  String get hp => _hp;
+
+  set hp(String value) {
+    _hp = value;
+  }
+
+  set transmission(String value) {
+    _transmission = value;
+  }
+
+
   Map<String, dynamic> toMap() {
 
 		var map = Map<String, dynamic>();
@@ -70,6 +118,11 @@ class Cardb{
     map['logo'] = _logo;
     map['location']=_location;
     map['link_detay']=_link_detay;
+    map['km']=km;
+    map['fuel']=_fuel;
+    map['transmission']=_transmission;
+    map['hp']=_hp;
+    map['color']=_color;
 
 		return map;
 	}
@@ -85,6 +138,11 @@ class Cardb{
     this._logo = map['logo'];
     this._location=map['location'];
     this._link_detay=map['link_detay'];
+    this._km=map['km'];
+    this._fuel=map['fuel'];
+    this._transmission=map['transmission'];
+    this._hp=map['hp'];
+    this._color=map['color'];
 	}
 
 

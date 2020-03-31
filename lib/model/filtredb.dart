@@ -7,9 +7,14 @@ class Filtredb{
   int _minYil;
   int _maxYil;
   int _isActive;
+  String _km;
+  String _fuel;
+  String _transmission;
+  String _hp;
+  String _color;
 
-  Filtredb(this._marka,this._model,this._minFiyat,this._maxFiyat,this._minYil,this._maxYil,this._isActive);
-  Filtredb.withId(this._id,this._marka,this._model,this._minFiyat,this._maxFiyat,this._minYil,this._maxYil,this._isActive);
+  Filtredb(this._marka,this._model,this._minFiyat,this._maxFiyat,this._minYil,this._maxYil,this._isActive,this._km,this._fuel,this._transmission,this._hp,this._color);
+  Filtredb.withId(this._id,this._marka,this._model,this._minFiyat,this._maxFiyat,this._minYil,this._maxYil,this._isActive,this._km,this._fuel,this._transmission,this._hp,this._color);
 
   int get id => _id;
 	String get marka => _marka;
@@ -42,7 +47,36 @@ class Filtredb{
 		this._isActive = newisActive;
 	}
 
-   // Convert a Filter object into a Map object
+  String get colKm => _km;
+
+  set colKm(String value) {
+    _km = value;
+  }
+
+  String get hp => _hp;
+
+  set hp(String value) {
+    _hp = value;
+  } // Convert a Filter object into a Map object
+
+  String get colFuel => _fuel;
+
+  set colFuel(String value) {
+    _fuel = value;
+  }
+
+  String get colTransmission => _transmission;
+
+  set colTransmission(String value) {
+    _transmission = value;
+  }
+
+  String get color => _color;
+
+  set color(String value) {
+    _color = value;
+  }
+
   Map<String, dynamic> toMap() {
 
 		var map = Map<String, dynamic>();
@@ -56,6 +90,11 @@ class Filtredb{
     map['minyil'] = _minYil;
     map['maxyil'] = _maxYil;
     map['isactive']=_isActive;
+    map['km']=_km;
+    map['fuel']=_fuel;
+    map['transmission']=_transmission;
+    map['hp']=_hp;
+    map['color']=_color;
 
 		return map;
 	}
@@ -70,6 +109,13 @@ class Filtredb{
     this._minYil = map['minyil'];
     this._maxYil = map['maxyil'];
     this._isActive = map['isactive'];
+    this._km = map['km'];
+    this._fuel = map['fuel'];
+    this._transmission = map['transmission'];
+    this._hp=map['hp'];
+    this._color=map['color'];
 	}
-  
+
+
+
 }

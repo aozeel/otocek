@@ -22,6 +22,7 @@ class HomePage extends StatefulWidget {
 
   HomePage.navigate(int page, this.user) {
     HomePageState.changePage(2);
+
   }
 }
 

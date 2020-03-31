@@ -18,7 +18,7 @@ class filterhandler {
   updateFiltre();
   
     DatabaseReference ref = FirebaseDatabase.instance.reference();
-    String model, title, year, price, date, location, image,logo,link_detay;
+    String model, title, year, price, location, image,logo,link_detay,km,hp,fuel,color,transmission;
     await ref.child('cars').once().then((DataSnapshot snapshot){
       var data1=snapshot.value;
       //var  key1= snapshot.value.keys;
@@ -32,18 +32,28 @@ class filterhandler {
             String nextprice=price.substring(0,price.length-3);
             String clearprice = nextprice.replaceAll(".","");
             double dblprice = double.parse(nextprice);
-            date = arabam[4].toString();
-            location = arabam[5].toString();
-            image = arabam[6].toString();
-            link_detay = arabam[7].toString();
-            logo = arabam[8].toString();
+            location = arabam[4].toString();
+            image = arabam[5].toString();
+            link_detay = arabam[6].toString();
+            km = arabam[7].toString();
+            hp = arabam[8].toString();
+            fuel = arabam[9].toString();
+            transmission = arabam[10].toString();
+            color = arabam[11].toString();
+            logo = arabam[12].toString();
+
             for(var myfiltre in filtreList)
             {
             bool modelfilter = model.contains(myfiltre.marka + " " + myfiltre.model);
             bool yearfilter  = (int.parse(year) >= myfiltre.minYil) && (int.parse(year)<= myfiltre.maxYil); 
             bool pricefilter = (int.parse(clearprice)>=myfiltre.minFiyat) && (int.parse(clearprice)<=myfiltre.maxFiyat);
             if(modelfilter&&yearfilter&&pricefilter){
-              carList.add(new Cardb(image, dblprice, title, location, model, year, logo,link_detay));
+              print("KM $km");
+              print("HP $hp");
+              print("FUEL $fuel");
+              print("TRANSMİSSİON $transmission");
+              print("COLOR $color");
+              carList.add(new Cardb(image, dblprice, title, location, model, year, logo,link_detay,km,fuel,transmission,hp,color));
                   }
             }
       }

@@ -4,6 +4,7 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:newflutter/model/car.dart';
 import 'package:flutter_money_formatter/flutter_money_formatter.dart';
 import 'package:newflutter/model/cardb.dart';
+import 'package:newflutter/pages/vebview.dart';
 import 'package:newflutter/utils/const.dart';
 import 'package:newflutter/utils/database_helper.dart';
 import 'package:sqflite/sqflite.dart';
@@ -92,26 +93,33 @@ class FourthPageState extends State<FourthPageStateFul> {
   }
 
   Widget _buildImageColumn(index) => Container(
-        decoration: BoxDecoration(color: Colors.blue[50]),
-        margin: const EdgeInsets.all(8),
-        child: Card(
-          child: Column(
-            children: <Widget>[
-              image(index),
-              ilanmodel(index),
-              ilanicerik(index),
-            ],
-          ),
-        ),
-      );
+    decoration: BoxDecoration(color: Constants.blue50,),
+    margin: const EdgeInsets.all(8),
+    child: Card(
+      child: Column(
+        children: <Widget>[
+          image(index),
+          ilanmodel(index),
+          ilanicerik(index),
+        ],
+      ),
+    ),
+  );
 
-  Widget image(index) => Container(
-        child: Stack(
-          // Yazıyı resim içerisinde yazmak için kulanılır
-          alignment: Alignment
-              .bottomRight, //Container ı resmin sağ alt konumuna götürdü
-          children: <Widget>[
-            Container(
+  Widget image(index) => GestureDetector(
+    onTap: () => Navigator.push(
+      context,
+      MaterialPageRoute(         //Modelleri oluştur
+        builder: (context) => WebViewPage(favList[index].link_detay),
+      ),
+    ),
+    child: Container(
+      color: Colors.grey[200],
+      child: Row(
+        children: <Widget>[
+          Expanded(
+            flex: 7,
+            child: Container(
               height: 150,
               decoration: BoxDecoration(
                 image: DecorationImage(
@@ -120,116 +128,212 @@ class FourthPageState extends State<FourthPageStateFul> {
                 ),
               ),
             ),
-            Container(
-              padding: EdgeInsets.all(4),
-              color: Constants.primaryColor,
-              child: Text(
-                fmf
-                        .copyWith(
-                            amount: favList[index].price, fractionDigits: 3)
-                        .output
-                        .nonSymbol +
-                    " TL",
-                style: TextStyle(color: Colors.white),
-              ),
-            ),
-          ],
-        ),
-      );
-
-  Widget ilanmodel(index) => new Container(
-        margin: const EdgeInsets.only(top: 8.0, left: 8.0),
-        child: Row(
-          mainAxisSize: MainAxisSize.max,
-          children: <Widget>[
-            Expanded(
-              child: Container(
-                child: RichText(
-                  overflow: TextOverflow.ellipsis,
-                  strutStyle: StrutStyle(fontSize: 14.0),
-                  text: TextSpan(
-                      style: TextStyle(
-                          color: Colors.black, fontWeight: FontWeight.bold),
-                      text: favList[index].title),
-                ),
-              ),
-            ),
-          ],
-        ),
-      );
-
-  Widget ilanicerik(index) => new Container(
-        margin: const EdgeInsets.all(8.0),
-        child: Row(
-          mainAxisSize: MainAxisSize.max,
-          children: <Widget>[
-            Expanded(
-              flex: 5,
-              child: Container(
-                margin: const EdgeInsets.only(right: 8.0),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  color: Constants.primaryColor,
-                  boxShadow: [
-                    BoxShadow(color:Constants.primaryColor, spreadRadius: 3),
-                  ],
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    new IconTheme(
-                      data: new IconThemeData(color: Constants.white,),
-                      child: new Icon(
-                        Icons.location_on,
-                        size: 15,
-                      ),
-                    ),
-                    Container(
-                      child: RichText(
-                        overflow: TextOverflow.ellipsis,
-                        strutStyle: StrutStyle(fontSize: 10.0),
-                        text: TextSpan(
-                            style: TextStyle(color: Constants.white,),
-                            text: favList[index].location),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            Expanded(
-              flex: 2,
-              child: Container(
-                margin: const EdgeInsets.only(right: 8.0),
-                child: Center(
-                  child: Text(
-                    favList[index].year,
-                    style: TextStyle(color: Constants.white,),
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  color: Constants.primaryColor,
-                  boxShadow: [
-                    BoxShadow(color: Constants.primaryColor, spreadRadius: 3),
-                  ],
-                ),
-              ),
-            ),
-            Expanded(
+          ),
+          Expanded(
               flex: 3,
               child: Container(
-                child: Image.asset(
-                  "assets/" + favList[index].logo,
-                  fit: BoxFit.fitWidth,
-                  width: 100,
+                child: Column(
+                  children: <Widget>[
+//                      Container(
+//                        padding: EdgeInsets.all(4),
+//                        color: Constants.primaryColor,
+//                        child: Text(
+//                          fmf
+//                              .copyWith(
+//                              amount: carList[index].price, fractionDigits: 3)
+//                              .output
+//                              .nonSymbol +
+//                              " TL",
+//                          style: TextStyle(color:Constants.white,),
+//                        ),
+//                      ),
+                    Container(
+                      margin: const EdgeInsets.all(4),
+                      child: Center(
+                        child: Text(
+                          fmf
+                              .copyWith(
+                              amount: favList[index].price, fractionDigits: 3)
+                              .output
+                              .nonSymbol +
+                              " TL",
+                          style: TextStyle(color:Constants.white,),
+                        ),
+                      ),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: Constants.primaryColor,
+                        boxShadow: [
+                          BoxShadow(
+                              color: Constants.primaryColor, spreadRadius: 3),
+                        ],
+                      ),
+                    ),
+                    SizedBox(height: 8,),
+//                      Container(
+//                        padding: EdgeInsets.all(4),
+//                        color: Constants.primaryColor,
+//                        child: Text("250.000 KM",
+//                          style: TextStyle(color:Constants.white,),
+//                        ),
+//                      ),
+                    Container(
+                      margin: const EdgeInsets.all(4),
+                      child: Center(
+                        child: Text(
+                          favList[index].km,
+                          style: TextStyle(color: Constants.white,),
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: Constants.primaryColor,
+                        boxShadow: [
+                          BoxShadow(color: Constants.primaryColor, spreadRadius: 3),
+                        ],
+                      ),
+                    ),
+                    SizedBox(height: 8,),
+                    Container(
+                      margin: const EdgeInsets.all(4),
+                      child: Center(
+                        child: Text(
+                          favList[index].Fuel,
+                          style: TextStyle(color: Constants.white,),
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: Constants.primaryColor,
+                        boxShadow: [
+                          BoxShadow(
+                              color: Constants.primaryColor, spreadRadius: 3),
+                        ],
+                      ),
+                    ),
+                    SizedBox(height: 8,),
+                    Container(
+                      margin: const EdgeInsets.all(4),
+                      child: Center(
+                        child: Text(
+                          favList[index].Transmission,
+                          style: TextStyle(color: Constants.white,),
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: Constants.primaryColor,
+                        boxShadow: [
+                          BoxShadow(
+                              color: Constants.primaryColor, spreadRadius: 3),
+                        ],
+                      ),
+                    ),
+                  ],
                 ),
-              ),
-            )
-          ],
+              )
+          ),
+        ],
+      ),
+    ),
+  );
+
+  Widget ilanmodel(index) => new Container(
+    margin: const EdgeInsets.only(top: 8.0, left: 8.0),
+    child: Row(
+      mainAxisSize: MainAxisSize.max,
+      children: <Widget>[
+        Expanded(
+          child: Container(
+            child: RichText(
+              overflow: TextOverflow.ellipsis,
+              strutStyle: StrutStyle(fontSize: 14.0),
+              text: TextSpan(
+                  style: TextStyle(
+                      color: Constants.black, fontWeight: FontWeight.bold),
+                  text: favList[index].title),
+            ),
+          ),
         ),
-      );
+      ],
+    ),
+  );
+
+  Widget ilanicerik(index) => new Container(
+    margin: const EdgeInsets.all(8.0),
+    child: Row(
+      mainAxisSize: MainAxisSize.max,
+      children: <Widget>[
+        Expanded(
+          flex: 5,
+          child: Container(
+            margin: const EdgeInsets.only(right: 8.0),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              color: Constants.primaryColor,
+              boxShadow: [
+                BoxShadow(color: Constants.primaryColor, spreadRadius: 3),
+              ],
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                new IconTheme(
+                  data: new IconThemeData(color: Constants.white,),
+                  child: new Icon(
+                    Icons.location_on,
+                    size: 15,
+                  ),
+                ),
+                Container(
+                  child: RichText(
+                    overflow: TextOverflow.ellipsis,
+                    strutStyle: StrutStyle(fontSize: 10.0),
+                    text: TextSpan(
+                        style: TextStyle(color: Constants.white,),
+                        text: favList[index].location),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+        Expanded(
+          flex: 2,
+          child: Container(
+            margin: const EdgeInsets.only(right: 8.0),
+            child: Center(
+              child: Text(
+                favList[index].year,
+                style: TextStyle(color: Constants.white,),
+                textAlign: TextAlign.center,
+              ),
+            ),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              color: Constants.primaryColor,
+              boxShadow: [
+                BoxShadow(color: Constants.primaryColor, spreadRadius: 3),
+              ],
+            ),
+          ),
+        ),
+        Expanded(
+          flex: 3,
+          child: Container(
+            child: Image.asset(
+              "assets/" + favList[index].logo,
+              fit: BoxFit.fitWidth,
+              width: 100,
+            ),
+          ),
+        )
+      ],
+    ),
+  );
 
   /*
                                 static void addtoFav(Car){
