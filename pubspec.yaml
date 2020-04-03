@@ -46,6 +46,8 @@ dependencies:
   chips_choice:
   dio: ^3.0.7
   searchable_dropdown: ^1.1.2
+  showcaseview: ^0.1.5
+  shared_preferences: ^0.5.6+3
 
   
   flutter:
@@ -103,6 +105,7 @@ flutter:
   # see https://flutter.dev/custom-fonts/#from-packages
   assets:
   - assets/il_ilce.json
+  - assets/markamodel.json
   - assets/berlin.png
   - assets/cm4.jpeg
   - assets/arabam.png

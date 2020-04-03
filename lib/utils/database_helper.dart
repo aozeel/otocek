@@ -36,6 +36,15 @@ class DatabaseHelper{
   String colMaxYil ='maxyil';
   String colIsActive ='isactive';
 
+  String colMinkm ='minkm';
+  String colMaxkm ='maxkm';
+  //colfuel
+  //coltransmission
+  //colhp
+  //colcolor
+  //colLocation
+
+
   String favTable ='favori_table';
 
 
@@ -73,7 +82,7 @@ class DatabaseHelper{
 				'$colImage TEXT, $colPrice DOUBLE, $colLocation TEXT, $colModel TEXT,$colYear TEXT, $colLogo TEXT, $colLinkDetay TEXT, $colKm TEXT,$colfuel TEXT,$coltransmission TEXT,$colhp TEXT,$colcolor TEXT)');
 
     await db.execute('CREATE TABLE $filtreTable($colId INTEGER PRIMARY KEY AUTOINCREMENT, $colMarka TEXT, '
-    '$colModel TEXT, $colMinFiyat INTEGER, $colMaxFiyat INTEGER, $colMinYil INTEGER, $colMaxYil INTEGER, $colIsActive INTEGER,$colLinkDetay TEXT, $colKm TEXT,$colfuel TEXT,$coltransmission TEXT,$colhp TEXT,$colcolor TEXT)');
+    '$colModel TEXT, $colMinFiyat INTEGER, $colMaxFiyat INTEGER, $colMinYil INTEGER, $colMaxYil INTEGER, $colIsActive INTEGER,$colMinkm INTEGER,$colMaxkm INTEGER, $colfuel TEXT,$coltransmission TEXT,$colhp TEXT,$colcolor TEXT,$colLocation TEXT)');
 
     await db.execute('CREATE TABLE $favTable ($colId INTEGER PRIMARY KEY AUTOINCREMENT, $colTitle TEXT, '
 				'$colImage TEXT, $colPrice DOUBLE, $colLocation TEXT, $colModel TEXT,$colYear TEXT, $colLogo TEXT, $colLinkDetay TEXT,$colKm TEXT,$colfuel TEXT,$coltransmission TEXT,$colhp TEXT,$colcolor TEXT)');

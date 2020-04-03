@@ -15,7 +15,8 @@ class SecondPage extends StatelessWidget {
           title: Text('Title'),
           subtitle: Text('$index'),
         );
-      }),
+      }
+      ),
     );
   }
 }

@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
@@ -34,6 +35,9 @@ class FirstPageState extends State<FirstPage> {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+      statusBarColor: Constants.primaryColor,
+    ));
     if(this.mounted){
       setState(() {
         updateCarListView();
@@ -51,59 +55,64 @@ class FirstPageState extends State<FirstPage> {
     if (carList.length <= 0 /* && FiltrelemeDuzenleState.lengthofFilter()<= 0*/) {
       return _buildEmptyFilter();
     }
-    return Scaffold(
-        appBar: AppBar(
-        title: Text("OtoÇek"),
-        actions: <Widget>[
-          PopupMenuButton<Choice>(
-              icon: Icon(Icons.format_line_spacing),
-              onSelected: _select,
-              itemBuilder: (BuildContext context) {
-                return choices.map((Choice choice) {
-                  return PopupMenuItem<Choice>(
-                    value: choice,
-                    child: Text(choice.title),
-                  );
-                }).toList();
-              },
-            ),
-        ],
-      ),
-      body:_buildListView());
+    return SafeArea(
+      child: Scaffold(
+          appBar: AppBar(
+          title: Text("OtoÇek"),
+          actions: <Widget>[
+            PopupMenuButton<Choice>(
+                icon: Icon(Icons.format_line_spacing),
+                onSelected: _select,
+                itemBuilder: (BuildContext context) {
+                  return choices.map((Choice choice) {
+                    return PopupMenuItem<Choice>(
+                      value: choice,
+                      child: Text(choice.title),
+                    );
+                  }).toList();
+                },
+              ),
+          ],
+        ),
+        body:_buildListView()),
+    );
   }
 
    Widget _buildEmptyFilter() {
-    return Container(
-      padding: EdgeInsets.fromLTRB(10, 150, 10, 0),
-      alignment: Alignment.bottomCenter,
-      child: Column(children: <Widget>[
-        Text(
-          Constants.welcome,
-          style: TextStyle(
-            fontSize: 25.0,
-            fontWeight: FontWeight.w700,
-            color: Constants.primaryColor,
-          ),
-        ),
-        Divider(
-          color: Colors.transparent,
-          height: 20,
-        ),
-        Text(
-          Constants.welcome1,
-          style: TextStyle(
-            fontSize: 25.0,
-            fontWeight: FontWeight.w700,
-            color: Constants.primaryColor,
-          ),
-        ),
-        Divider(
-          color: Colors.transparent,
-          height: 50,
-        ),
-        Icon(Icons.drive_eta, size: 200, color: Colors.black26),
-        Icon(Icons.arrow_downward, size: 150, color: Colors.black26),
-      ]),
+    return SafeArea(
+      child: Container(
+        margin: EdgeInsets.fromLTRB(10, 100, 10, 0),
+        alignment: Alignment.bottomCenter,
+        child:  Column(children: <Widget>[
+            Text(
+              Constants.welcome,
+              style: TextStyle(
+                fontSize: 25.0,
+                fontWeight: FontWeight.w700,
+                color: Constants.primaryColor,
+              ),
+            ),
+            Divider(
+              color: Colors.transparent,
+              height: 20,
+            ),
+            Text(
+              Constants.welcome1,
+              style: TextStyle(
+                fontSize: 25.0,
+                fontWeight: FontWeight.w700,
+                color: Constants.primaryColor,
+              ),
+            ),
+            Divider(
+              color: Colors.transparent,
+              height: 50,
+            ),
+//            Icon(Icons.drive_eta, size: 200, color: Colors.black26),
+            Icon(Icons.arrow_downward, size: 150, color: Colors.black26),
+          ]),
+
+      ),
     );
   }
 
@@ -138,13 +147,11 @@ class FirstPageState extends State<FirstPage> {
                 onTap: () {
                   if(this.mounted){
                     setState(() {
-                      //FourthPageState.addtoFav(carList[index]);
                       insertToFavori(carList[index]);
                       Scaffold.of(context).showSnackBar(
                           SnackBar(content: Text("$item favorilere eklendi")));
                     });
                   }
-
                 },
               ),
             ],
@@ -154,12 +161,9 @@ class FirstPageState extends State<FirstPage> {
                 color: Constants.iconcolorred,
                 icon: Icons.delete,
                 onTap: () {
-                  //databaseHelper.deleteCar(carList[index].id);
                   if(this.mounted){
                     setState(() {
-                      // carList.removeAt(index);
                       deleteCar(carList[index].id);
-                      //updateCarListView();
                       Scaffold.of(context).showSnackBar(
                           SnackBar(content: Text("$item kaldırıldı")));
                     });
@@ -316,44 +320,7 @@ class FirstPageState extends State<FirstPage> {
                             ],
                           ),
                         ),
-                        SizedBox(height: 8,),
-                        Container(
-                          margin: const EdgeInsets.all(4),
-                          child: Center(
-                            child: Text(
-                              carList[index].hp,
-                              style: TextStyle(color: Constants.white,),
-                              textAlign: TextAlign.center,
-                            ),
-                          ),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            color: Constants.primaryColor,
-                            boxShadow: [
-                              BoxShadow(
-                                  color: Constants.primaryColor, spreadRadius: 3),
-                            ],
-                          ),
-                        ),
-                        SizedBox(height: 8,),
-                        Container(
-                          margin: const EdgeInsets.all(4),
-                          child: Center(
-                            child: Text(
-                              carList[index].color,
-                              style: TextStyle(color: Constants.white,),
-                              textAlign: TextAlign.center,
-                            ),
-                          ),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            color: Constants.primaryColor,
-                            boxShadow: [
-                              BoxShadow(
-                                  color: Constants.primaryColor, spreadRadius: 3),
-                            ],
-                          ),
-                        ),
+
                       ],
                     ),
                   )
@@ -388,6 +355,7 @@ class FirstPageState extends State<FirstPage> {
         margin: const EdgeInsets.all(8.0),
         child: Row(
           mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
             Expanded(
               flex: 5,
@@ -400,27 +368,18 @@ class FirstPageState extends State<FirstPage> {
                     BoxShadow(color: Constants.primaryColor, spreadRadius: 3),
                   ],
                 ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    new IconTheme(
-                      data: new IconThemeData(color: Constants.white,),
-                      child: new Icon(
-                        Icons.location_on,
-                        size: 15,
-                      ),
-                    ),
+                child:
                     Container(
                       child: RichText(
                         overflow: TextOverflow.ellipsis,
-                        strutStyle: StrutStyle(fontSize: 10.0),
+                        strutStyle: StrutStyle(fontSize: 12.0),
                         text: TextSpan(
                             style: TextStyle(color: Constants.white,),
                             text: carList[index].location),
+                              textAlign: TextAlign.center,
                       ),
                     ),
-                  ],
-                ),
+
               ),
             ),
             Expanded(
@@ -430,7 +389,7 @@ class FirstPageState extends State<FirstPage> {
                 child: Center(
                   child: Text(
                     carList[index].year,
-                    style: TextStyle(color: Constants.white,),
+                    style: TextStyle(color: Constants.white),
                     textAlign: TextAlign.center,
                   ),
                 ),

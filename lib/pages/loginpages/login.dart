@@ -34,10 +34,10 @@ class GirisYapState extends State<GirisYap> {
   void _emailVeSifreIleGiris(String email,String password) async{
     final _usermodel=Provider.of<UserModel>(context,listen: false);
     User _user=await _usermodel.sigInWithEmailAndPassword(email, password);
-
     if(_user !=null)
       print("Oturum açan user id:" + _user.userID.toString());
-  }
+
+    }
   void sifremiunuttum(String email) async{
     final _usermodel=Provider.of<UserModel>(context,listen: false);
     bool sonuc=await _usermodel.forgotMyPassword(email);

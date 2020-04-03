@@ -30,172 +30,166 @@ class FifthPageState extends State<FifthPage> {
    profilphoto=usermodel.user.profilurl;
     final title = Constants.profil;
     return Scaffold(
-          appBar: AppBar(
-            title: Text(title),
-            backgroundColor: Constants.primaryColor,
-          ),
-          body:Container(
-              width: MediaQuery.of(context).size.width,
-              height:MediaQuery.of(context).size.height *0.9 ,
-              //padding: EdgeInsets.fromLTRB(10.0,15.0,10.0,0),
-              child: SingleChildScrollView(
-                scrollDirection: Axis.vertical,
-                child: Card(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15.0),
-                  ),
-                  color: Constants.white,
-                  elevation: 10,
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: <Widget>[
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: <Widget>[
-                          Padding(
-                            padding: EdgeInsets.only(left: 10.0, right: 10.0,top: 15.0,bottom: 10.0),
-                            child: GestureDetector(
-                              onTap: () {
-                              },
-                              child: CircleAvatar(
-                                radius: 75,
-                                backgroundColor: Constants.white,
-                                backgroundImage: NetworkImage(profilphoto.toString())
+      
+          body:SafeArea(
+            child: Container(
+                width: MediaQuery.of(context).size.width,
+                height:MediaQuery.of(context).size.height,
+                //padding: EdgeInsets.fromLTRB(10.0,15.0,10.0,0),
+                child: SingleChildScrollView(
+                  scrollDirection: Axis.vertical,
+                  child:
+                    Column(
+                      mainAxisSize: MainAxisSize.max,
+                      children: <Widget>[
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: <Widget>[
+                            Padding(
+                              padding: EdgeInsets.only(left: 10.0, right: 10.0,top: 15.0,bottom: 10.0),
+                              child: GestureDetector(
+                                onTap: () {
+                                },
+                                child: CircleAvatar(
+                                  radius: 75,
+                                  backgroundColor: Constants.white,
+                                  backgroundImage: NetworkImage(profilphoto.toString())
 
+                                ),
                               ),
+
                             ),
 
-                          ),
-
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: <Widget>[
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  children: <Widget>[
-                                    Text(
-                                      usermodel.user.namesurname.toString(),
-                                      style: TextStyle(
-                                        fontSize: 20.0,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-
-                                SizedBox(height: 5.0),
-
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  children: <Widget>[
-                                    Text(
-                                      usermodel.user.email,
-                                      style: TextStyle(
-                                        fontSize: 14.0,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-
-                                SizedBox(height: 20.0),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  children: <Widget>[
-                                    InkWell(
-                                      onTap: (){
-                                        Navigator.of(context).push(
-                                          MaterialPageRoute(
-                                            builder: (BuildContext context){
-                                              return new Container();//SplashScreen();
-                                            },
-                                          ),
-                                        );
-                                      },
-                                      child: Text(usermodel.user.phonenumber,
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: <Widget>[
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: <Widget>[
+                                      Text(
+                                        usermodel.user.namesurname.toString(),
                                         style: TextStyle(
-                                          fontSize: 16.0,
-                                          fontWeight: FontWeight.w400,
-                                          color: Theme.of(context).accentColor,
+                                          fontSize: 20.0,
+                                          fontWeight: FontWeight.bold,
                                         ),
-                                        overflow: TextOverflow.ellipsis,
                                       ),
-                                    ),
-                                  ],
-                                ),
+                                    ],
+                                  ),
 
-                              ],
+                                  SizedBox(height: 5.0),
+
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: <Widget>[
+                                      Text(
+                                        usermodel.user.email,
+                                        style: TextStyle(
+                                          fontSize: 14.0,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+
+                                  SizedBox(height: 20.0),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: <Widget>[
+                                      InkWell(
+                                        onTap: (){
+                                          Navigator.of(context).push(
+                                            MaterialPageRoute(
+                                              builder: (BuildContext context){
+                                                return new Container();//SplashScreen();
+                                              },
+                                            ),
+                                          );
+                                        },
+                                        child: Text("Gol Paket",
+                                          style: TextStyle(
+                                            fontSize: 16.0,
+                                            fontWeight: FontWeight.w400,
+                                            color: Theme.of(context).accentColor,
+                                          ),
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+
+                                ],
+                              ),
+                              flex: 3,
                             ),
-                            flex: 3,
-                          ),
-                        ],
-                      ),
-
-                      Divider(color: Constants.black,),
-                      ListTile(
-                        leading:Text('') ,
-                        title: Text('Genel',style: TextStyle(fontSize: 18),),
-                      ),
-                      Divider(color: Constants.black,),
-
-                      ListTile(
-                          leading: Icon(Icons.settings),
-                          title: Text(Constants.settings),
-                          onTap:(){
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                fullscreenDialog: true,
-                                builder: (context) => SettingsPageStateFul(),
-                              ),
-                            );}),
-                      ListTile(
-                          leading: Icon(Icons.help),
-                          title: Text(Constants.getsupport),
-                          onTap:(){
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => SupportPage(),
-                              ),
-                            );}
-                      ),
-                      ListTile(
-                          leading: Icon(Icons.description),
-                          title: Text(Constants.getsupport),
-                          onTap:(){
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => AboutusPage(),
-                              ),
-                            );}
-                      ),
-                      ListTile(
-                          leading: Icon(Icons.info),
-                          title: Text(Constants.deviceinfo),
-                          onTap:(){
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => DeviceInfoPage(),
-                              ),
-                            );}
-                      ),
-                        ListTile(
-                          leading: Icon(
-                            Icons.power_settings_new,
-                            color: Constants.iconcolorred,
-                          ),
-                          title: Text(Constants.exit),
-                          onTap: () => _cikisyap(context),
+                          ],
                         ),
-                    ],
-                  ),
+
+                        Divider(color: Constants.black,),
+                        ListTile(
+                          leading:Text('') ,
+                          title: Text('Genel',style: TextStyle(fontSize: 18),),
+                        ),
+                        Divider(color: Constants.black,),
+
+                        ListTile(
+                            leading: Icon(Icons.settings),
+                            title: Text(Constants.settings),
+                            onTap:(){
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  fullscreenDialog: true,
+                                  builder: (context) => SettingsPageStateFul(),
+                                ),
+                              );}),
+                        ListTile(
+                            leading: Icon(Icons.help),
+                            title: Text(Constants.getsupport),
+                            onTap:(){
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => SupportPage(),
+                                ),
+                              );}
+                        ),
+                        ListTile(
+                            leading: Icon(Icons.description),
+                            title: Text(Constants.aboutus),
+                            onTap:(){
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => AboutusPage(),
+                                ),
+                              );}
+                        ),
+                        ListTile(
+                            leading: Icon(Icons.info),
+                            title: Text(Constants.deviceinfo),
+                            onTap:(){
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => DeviceInfoPage(),
+                                ),
+                              );}
+                        ),
+                          ListTile(
+                            leading: Icon(
+                              Icons.power_settings_new,
+                              color: Constants.iconcolorred,
+                            ),
+                            title: Text(Constants.exit),
+                            onTap: () => _cikisyap(context),
+                          ),
+                      ],
+                    ),
+
                 ),
               ),
-            ),
+          ),
 
         )
     ;

@@ -24,6 +24,7 @@ class filterhandler {
       //var  key1= snapshot.value.keys;
       //for (var keydeger in key1){
       //var bilgi = data1[keydeger];
+      print("bildirim geldi !");
       for (var arabam in data1[fbasekey]){
             model = arabam[0].toString();
             title = arabam[1].toString();
@@ -36,7 +37,9 @@ class filterhandler {
             image = arabam[5].toString();
             link_detay = arabam[6].toString();
             km = arabam[7].toString();
+            String clearkm=km.substring(0,km.length-3);
             hp = arabam[8].toString();
+            String clearhp = hp.substring(0,hp.length-3),
             fuel = arabam[9].toString();
             transmission = arabam[10].toString();
             color = arabam[11].toString();
@@ -47,14 +50,33 @@ class filterhandler {
             bool modelfilter = model.contains(myfiltre.marka + " " + myfiltre.model);
             bool yearfilter  = (int.parse(year) >= myfiltre.minYil) && (int.parse(year)<= myfiltre.maxYil); 
             bool pricefilter = (int.parse(clearprice)>=myfiltre.minFiyat) && (int.parse(clearprice)<=myfiltre.maxFiyat);
-            if(modelfilter&&yearfilter&&pricefilter){
+            bool kmfilter =(int.parse(clearkm)>=myfiltre.colminKm) && (int.parse(clearkm)<=myfiltre.colmaxKm);
+            
+
+            
+
+            if((modelfilter&&yearfilter)&&(pricefilter&&kmfilter)){
+              bool transfilter= (myfiltre.colTransmission.contains("Tümü")) ? true : transmission.contains(myfiltre.colTransmission);
+              bool fuelfilter = myfiltre.colFuel.contains("Tümü") ? true : myfiltre.colFuel.contains(fuel);
+              bool colorfilter = myfiltre.color.contains("Tümü") ? true : myfiltre.color.contains(color);
+              bool locatfilter = myfiltre.location.contains("Tümü") ? true : location.contains(myfiltre.location);
+              if((transfilter&&fuelfilter)&&(colorfilter&& locatfilter)){
+                bool hpfilter=true;
+                if(!myfiltre.hp.contains("Tümü")){
+                  String minhp=myfiltre.hp.split("-")[0];
+                 String maxhp = myfiltre.hp.split("-")[1].substring(0,myfiltre.hp.split("-")[1].length-3);
+                 hpfilter = (int.parse(clearhp)>=int.parse(minhp)) && (int.parse(clearhp)<=int.parse(maxhp));
+                }
+                
+                if(hpfilter){
               print("KM $km");
               print("HP $hp");
               print("FUEL $fuel");
               print("TRANSMİSSİON $transmission");
               print("COLOR $color");
               carList.add(new Cardb(image, dblprice, title, location, model, year, logo,link_detay,km,fuel,transmission,hp,color));
-                  }
+              break;
+                  }}}
             }
       }
     });
