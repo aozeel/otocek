@@ -10,7 +10,8 @@ import 'package:searchable_dropdown/searchable_dropdown.dart';
 import 'dart:convert';
 
 const List<String> enginepower_data = const <String>[
-  "50 HP'ye kadar",
+  "Tümü",
+  "0-50 HP",
   "51-75 HP",
   "76-100 HP",
   "101-125 HP",
@@ -33,46 +34,18 @@ const List<String> enginepower_data = const <String>[
   "526-550 HP",
   "551-575 HP",
   "576-600 HP",
-  "601 HP ve üzeri",
+  "601-2000 HP",
 ];
-const List<String> enginevolume_data = const <String>[
-  "1300 cm3'ye kadar",
-  "1301-1600 cm3",
-  "1601-1800 cm3",
-  "1801-20000 cm3",
-  "2001-2500 cm3",
-  "2501-3000 cm3",
-  "3001-3500 cm3",
-  "3501-4000 cm3",
-  "4001-4500 cm3",
-  "4501-5000 cm3",
-  "5001-5500 cm3",
-  "5501-6000 cm3",
-  "6001 cm3 ve üzeri",
-];
-const List<String> carsafe_data = const <String>[
-  "Cabrio",
-  "Coupe",
-  "Hatchback 3 kapı",
-  "Hatchback 5 kapı",
-  "Sedan",
-  "Station Wagon",
-  "Crossover",
-  "MPV",
-  "Roadster"
-];
-const List<String> traction_type = const <String>[
-  "Önden Çekiş",
-  "Arkadan İtiş",
-  "4WD(Sürekli)",
-  "AWD(Elektronik)",
-];
+
+
 const List<String> gear_type = const <String>[
+  "Tümü",
   "Manuel",
   "Yarı Otomatik",
   "Otomatik",
 ];
 const List<String> cars_color = const <String>[
+  "Tümü",
   "Bej",
   "Beyaz",
   "Bordo",
@@ -93,6 +66,7 @@ const List<String> cars_color = const <String>[
   "Yeşil",
 ];
 
+
 class FilterDetail extends StatefulWidget {
   String gelenMarka;
   String gelenModel;
@@ -108,22 +82,33 @@ class _FilterDetailState extends State<FilterDetail> {
   final maxFiyatController = TextEditingController();
   final minTarihController = TextEditingController();
   final maxTarihController = TextEditingController();
+  final minKmController = TextEditingController();
+  final maxKmController = TextEditingController();
+
   static DatabaseHelper databaseHelper = DatabaseHelper();
   int minFiyat = 0;
   int maxFiyat = 1000000;
   int minYil = 1900;
   int maxYil = 3000;
+
+  int minKm=0;
+  int maxKm=10000000;
+
   String km="100.000 km";
   String fuel="Benzin";
   String transmission="Otomatik";
 
-  final List<DropdownMenuItem> city_items = [];
-  final List<DropdownMenuItem> town_items = [];
-  String city_text;
-  String town_text;
+  final List<DropdownMenuItem> city_items = [DropdownMenuItem(child:Text('Tümü') ,value:['Tümü','1'],)];
+   List<DropdownMenuItem> town_items = [DropdownMenuItem(child:Text('Tümü') ,value:'Tümü',)];
+
+
+  String city_text="Tümü";
+  String town_text="";
   String town_text1="1";
-  var data = ['Benzinli', 'Dizel', 'LPG'];
-  var selected = [];
+
+  var data = ['Benzin', 'Dizel', 'LPG','Elektrik','Hybrid'];
+  var selected = [0,1,2,3,4];
+
   bool selectedicon = false;
   int _selectedenginepowerIndex = 0;
   int _selectedenginevolumeIndex = 0;
@@ -132,15 +117,19 @@ class _FilterDetailState extends State<FilterDetail> {
   int _selectedgeartypeIndex = 0;
   int _selectedcarscolorsIndex = 0;
 
-  Future<List<City>> a;
+  //Future<List<City>> a;
   List<City> city_list;
-  int id;
-  City city;
+  //int id;
+  //City city;
+
+
   Future<void> loadStudent() async {
     String jsonString = await CityTown.loadAsset();
     final jsonResponse = json.decode(jsonString);
+
     CityList city = new CityList.fromJson(jsonResponse);
     city_list = city.citys;
+    
     for (int i = 0; i < city_list.length; i++) {
       city_items.add(DropdownMenuItem(
         child: Text(city_list[i].name),
@@ -164,7 +153,7 @@ class _FilterDetailState extends State<FilterDetail> {
     final jsonResponse = json.decode(jsonString);
     CityList city = new CityList.fromJson(jsonResponse);
     city_list = city.citys;
-    print(town_text1);
+    //print(town_text1);
     for (int k = 0; k < city_list[int.parse(town_text1)-1].townList.length; k++) {
       town_items.add(DropdownMenuItem(
         child: Text(city_list[int.parse(town_text1)-1].townList[k]),
@@ -177,6 +166,8 @@ class _FilterDetailState extends State<FilterDetail> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Constants.grey200,
+
+
       appBar: AppBar(
         title: Center(
           child: Text(
@@ -210,8 +201,26 @@ class _FilterDetailState extends State<FilterDetail> {
                 maxYil = int.parse(maxTarihController.text);
               }
 
+              if(minKmController.text==""){
+                minKm=0;
+              }else{
+                minKm=int.parse(minKmController.text);
+              }
+              if(maxKmController.text==""){
+                maxKm=10000000;
+              }else{
+                maxKm=int.parse(maxKmController.text);
+              }
+               String fuel="";
+              if(selected.length==5){fuel="Tümü";}else{
+              selected.forEach((f){fuel+=data[f]+",";});}
+
+              if(town_text=='Tümü'){town_text="";}
+
               databaseHelper.insertFiltre(new Filtredb(widget.gelenMarka,
-                  widget.gelenModel, minFiyat, maxFiyat, minYil, maxYil, 1,"100.000 km","Benzin","Otomatik","115hp","Beyaz"));
+                  widget.gelenModel, minFiyat, maxFiyat, minYil, maxYil, 1,
+                  minKm,maxKm,fuel,gear_type[_selectedgeartypeIndex],enginepower_data[_selectedenginepowerIndex],
+                  cars_color[_selectedcarscolorsIndex],(city_text +", "+ town_text)));
 
               Navigator.push(
                 context,
@@ -223,13 +232,20 @@ class _FilterDetailState extends State<FilterDetail> {
           )
         ],
       ),
+
+
+
+
       body: SingleChildScrollView(
           child: Container(
         child: Column(
           children: <Widget>[
+
             Container(
               child: Column(
                 children: <Widget>[
+
+                  
                   Container(
                     alignment: Alignment.topLeft,
                     margin:
@@ -315,7 +331,7 @@ class _FilterDetailState extends State<FilterDetail> {
                         height: 40.0,
                         margin: EdgeInsets.all(10.0),
                         child: TextField(
-                          controller: minFiyatController,
+                          controller: minKmController,
                           keyboardType: TextInputType.number,
                           decoration: InputDecoration(
                             border: OutlineInputBorder(),
@@ -332,7 +348,7 @@ class _FilterDetailState extends State<FilterDetail> {
                               height: 40.0,
                               margin: EdgeInsets.only(right: 10.0),
                               child: TextField(
-                                controller: maxFiyatController,
+                                controller: maxKmController,
                                 keyboardType: TextInputType.number,
                                 decoration: const InputDecoration(
                                   border: OutlineInputBorder(),
@@ -370,7 +386,9 @@ class _FilterDetailState extends State<FilterDetail> {
                               } else {
                                 selected.add(index);
                               }
-                              setState(() {});
+                              setState(() {
+                                selected.isEmpty ? selected=[0,1,2,3,4]:true;
+                              });
                             },
                             checkmarkColor: Colors.white,
                             selected: selected.contains(index),
@@ -475,7 +493,7 @@ class _FilterDetailState extends State<FilterDetail> {
                                 navigationBar: CupertinoNavigationBar(
                                   backgroundColor: Constants.primaryColor,
                                   middle: Text(
-                                    "Bitirilme Zamanı",
+                                    "Motor Gücü",
                                     style: TextStyle(color: Colors.white),
                                   ),
                                   leading: GestureDetector(
@@ -537,232 +555,9 @@ class _FilterDetailState extends State<FilterDetail> {
                         )),
                   ),
                   //Motor Hacmi
-                  Container(
-                    margin:
-                        EdgeInsets.only(left: 10.0, top: 10.0, bottom: 10.0),
-                    child: Text("Motor Hacmi"),
-                  ),
-                  InkWell(
-                    onTap: () {
-                      setState(() {
-                        showModalBottomSheet(
-                            context: context,
-                            builder: (BuildContext context) {
-                              return CupertinoPageScaffold(
-                                navigationBar: CupertinoNavigationBar(
-                                  backgroundColor: Constants.primaryColor,
-                                  middle: Text(
-                                    "Bitirilme Zamanı",
-                                    style: TextStyle(color: Colors.white),
-                                  ),
-                                  leading: GestureDetector(
-                                      onTap: () {
-                                        Navigator.of(context).pop();
-                                      },
-                                      child: Icon(
-                                        Icons.arrow_back,
-                                        color: Colors.white,
-                                      )),
-                                  trailing: GestureDetector(
-                                      onTap: () {
-                                        Navigator.of(context).pop();
-                                      },
-                                      child: Icon(
-                                        Icons.send,
-                                        color: Colors.white,
-                                      )),
-                                ),
-                                child: Container(
-                                  height: 200.0,
-                                  child: CupertinoPicker(
-                                      itemExtent: 32.0,
-                                      onSelectedItemChanged: (int index) {
-                                        setState(() {
-                                          _selectedenginevolumeIndex = index;
-                                        });
-                                      },
-                                      children: new List<Widget>.generate(
-                                          enginevolume_data.length,
-                                          (int index) {
-                                        return new Center(
-                                          child: new Text(
-                                              enginevolume_data[index]),
-                                        );
-                                      })),
-                                ),
-                              );
-                            });
-                      });
-                    },
-                    child: Container(
-                        width: 500.0,
-                        margin: EdgeInsets.only(left: 10.0, right: 10.0),
-                        padding: new EdgeInsets.all(8.0),
-                        color: Constants.white,
-                        child: new Row(
-                          children: [
-                            Text(enginevolume_data[_selectedenginevolumeIndex]),
-                            Expanded(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.end,
-                                children: <Widget>[
-                                  Icon(Icons.chevron_right),
-                                ],
-                              ),
-                            ),
-                          ],
-                        )),
-                  ),
+                 
                   //Kasa tipi
-                  Container(
-                    margin:
-                        EdgeInsets.only(left: 10.0, top: 10.0, bottom: 10.0),
-                    child: Text("Kasa Tipi"),
-                  ),
-                  InkWell(
-                    onTap: () {
-                      setState(() {
-                        showModalBottomSheet(
-                            context: context,
-                            builder: (BuildContext context) {
-                              return CupertinoPageScaffold(
-                                navigationBar: CupertinoNavigationBar(
-                                  backgroundColor: Constants.primaryColor,
-                                  middle: Text(
-                                    "Kasa Tipi",
-                                    style: TextStyle(color: Colors.white),
-                                  ),
-                                  leading: GestureDetector(
-                                      onTap: () {
-                                        Navigator.of(context).pop();
-                                      },
-                                      child: Icon(
-                                        Icons.arrow_back,
-                                        color: Colors.white,
-                                      )),
-                                  trailing: GestureDetector(
-                                      onTap: () {
-                                        Navigator.of(context).pop();
-                                      },
-                                      child: Icon(
-                                        Icons.send,
-                                        color: Colors.white,
-                                      )),
-                                ),
-                                child: Container(
-                                  height: 200.0,
-                                  child: CupertinoPicker(
-                                      itemExtent: 32.0,
-                                      onSelectedItemChanged: (int index) {
-                                        setState(() {
-                                          _selectedcarsafeIndex = index;
-                                        });
-                                      },
-                                      children: new List<Widget>.generate(
-                                          carsafe_data.length, (int index) {
-                                        return new Center(
-                                          child: new Text(carsafe_data[index]),
-                                        );
-                                      })),
-                                ),
-                              );
-                            });
-                      });
-                    },
-                    child: Container(
-                        width: 500.0,
-                        margin: EdgeInsets.only(left: 10.0, right: 10.0),
-                        padding: new EdgeInsets.all(8.0),
-                        color: Constants.white,
-                        child: new Row(
-                          children: [
-                            Text(carsafe_data[_selectedcarsafeIndex]),
-                            Expanded(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.end,
-                                children: <Widget>[
-                                  Icon(Icons.chevron_right),
-                                ],
-                              ),
-                            ),
-                          ],
-                        )),
-                  ),
-                  //Çekiş Tipi
-                  Container(
-                    margin:
-                        EdgeInsets.only(left: 10.0, top: 10.0, bottom: 10.0),
-                    child: Text("Çekiş Tipi"),
-                  ),
-                  InkWell(
-                    onTap: () {
-                      setState(() {
-                        showModalBottomSheet(
-                            context: context,
-                            builder: (BuildContext context) {
-                              return CupertinoPageScaffold(
-                                navigationBar: CupertinoNavigationBar(
-                                  backgroundColor: Constants.primaryColor,
-                                  middle: Text(
-                                    "Çekiş Tipi",
-                                    style: TextStyle(color: Colors.white),
-                                  ),
-                                  leading: GestureDetector(
-                                      onTap: () {
-                                        Navigator.of(context).pop();
-                                      },
-                                      child: Icon(
-                                        Icons.arrow_back,
-                                        color: Colors.white,
-                                      )),
-                                  trailing: GestureDetector(
-                                      onTap: () {
-                                        Navigator.of(context).pop();
-                                      },
-                                      child: Icon(
-                                        Icons.send,
-                                        color: Colors.white,
-                                      )),
-                                ),
-                                child: Container(
-                                  height: 200.0,
-                                  child: CupertinoPicker(
-                                      itemExtent: 32.0,
-                                      onSelectedItemChanged: (int index) {
-                                        setState(() {
-                                          _selectedtractiontypeIndex = index;
-                                        });
-                                      },
-                                      children: new List<Widget>.generate(
-                                          traction_type.length, (int index) {
-                                        return new Center(
-                                          child: new Text(traction_type[index]),
-                                        );
-                                      })),
-                                ),
-                              );
-                            });
-                      });
-                    },
-                    child: Container(
-                        width: 500.0,
-                        margin: EdgeInsets.only(left: 10.0, right: 10.0),
-                        padding: new EdgeInsets.all(8.0),
-                        color: Constants.white,
-                        child: new Row(
-                          children: [
-                            Text(traction_type[_selectedtractiontypeIndex]),
-                            Expanded(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.end,
-                                children: <Widget>[
-                                  Icon(Icons.chevron_right),
-                                ],
-                              ),
-                            ),
-                          ],
-                        )),
-                  ),
+                  //Çekiş
                   //Renk
                   Container(
                     margin:
@@ -916,9 +711,12 @@ class _FilterDetailState extends State<FilterDetail> {
                                 onChanged: (value) {
                                   setState(() {
                                     city_text = value[0];
+                                    print(city_text);
                                     town_text1=value[1];
-                                    AddTownList();
+                                    if(city_text!='Tümü'){AddTownList();}
                                     town_items.clear();
+                                    town_items = [DropdownMenuItem(child:Text('Tümü') ,value:'Tümü',)];
+
                                   });
                                 },
                                 isExpanded: true,
@@ -929,7 +727,7 @@ class _FilterDetailState extends State<FilterDetail> {
                             height: 8.0,
                           ),
                           Visibility(
-                            visible: city_text == null ?false:true,
+                            visible: (city_text == null || city_text== 'Tümü') ?false:true,
                             child: Card(
                               elevation: 3.0,
                               child: Container(
@@ -951,6 +749,7 @@ class _FilterDetailState extends State<FilterDetail> {
                                   onChanged: (value) {
                                     setState(() {
                                       town_text = value;
+                                      print(town_text);
                                     });
                                   },
                                   isExpanded: true,

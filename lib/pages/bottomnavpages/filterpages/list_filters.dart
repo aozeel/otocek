@@ -100,7 +100,28 @@ class FiltrelemeDuzenleState extends State<FiltrelemeDuzenleFul> {
               ),
             ]),
             onTap: () {
-              print('horse');
+             """ print(_lstofFiltres[index].marka);
+              print(_lstofFiltres[index].model);
+              print("fiyat");
+              print(_lstofFiltres[index].minFiyat);
+              print(_lstofFiltres[index].maxFiyat);
+              print("km");
+              print(_lstofFiltres[index].colminKm);
+              print(_lstofFiltres[index].colmaxKm);
+
+              print("transmission");
+              print(_lstofFiltres[index].colTransmission);""";
+
+              print("engine pow");
+              print(_lstofFiltres[index].hp);
+
+
+
+              //print(_lstofFiltres[index].colTransmission);
+              //print(_lstofFiltres[index].color);
+              //print(_lstofFiltres[index].hp);
+              //print(_lstofFiltres[index].location);
+              //print(_lstofFiltres[index].colFuel);
             },
             selected: true,
           );

@@ -103,6 +103,7 @@ flutter:
   # see https://flutter.dev/custom-fonts/#from-packages
   assets:
   - assets/il_ilce.json
+  - assets/markamodel.json
   - assets/berlin.png
   - assets/cm4.jpeg
   - assets/arabam.png

@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'file:///C:/Users/Ertugrul/FlutterProjects/otocek/lib/widgets/platform_duyarli_widget.dart';
+import 'platform_duyarli_widget.dart';
 
 
 class PlatformDuyarliAlertDialog extends PlatformDuyarliWidget {

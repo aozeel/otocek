@@ -7,14 +7,16 @@ class Filtredb{
   int _minYil;
   int _maxYil;
   int _isActive;
-  String _km;
+  int _minkm;
+  int _maxkm;
   String _fuel;
   String _transmission;
   String _hp;
   String _color;
+  String _location;
 
-  Filtredb(this._marka,this._model,this._minFiyat,this._maxFiyat,this._minYil,this._maxYil,this._isActive,this._km,this._fuel,this._transmission,this._hp,this._color);
-  Filtredb.withId(this._id,this._marka,this._model,this._minFiyat,this._maxFiyat,this._minYil,this._maxYil,this._isActive,this._km,this._fuel,this._transmission,this._hp,this._color);
+  Filtredb(this._marka,this._model,this._minFiyat,this._maxFiyat,this._minYil,this._maxYil,this._isActive,this._minkm,this._maxkm,this._fuel,this._transmission,this._hp,this._color,this._location);
+  Filtredb.withId(this._id,this._marka,this._model,this._minFiyat,this._maxFiyat,this._minYil,this._maxYil,this._isActive,this._minkm,this._maxkm,this._fuel,this._transmission,this._hp,this._color,this._location);
 
   int get id => _id;
 	String get marka => _marka;
@@ -24,6 +26,16 @@ class Filtredb{
   int get minYil =>_minYil;
 	int get maxYil => _maxYil;
   int get isActive => _isActive;
+
+  int get colminKm => _minkm;
+  int get colmaxKm => _maxkm;
+  String get colFuel => _fuel;
+  String get colTransmission => _transmission;
+  String get hp => _hp;
+  String get color => _color;
+  String get location =>_location;
+
+
 
   set marka(String newmarka) {
 		this._marka = newmarka;
@@ -47,34 +59,35 @@ class Filtredb{
 		this._isActive = newisActive;
 	}
 
-  String get colKm => _km;
+  
 
-  set colKm(String value) {
-    _km = value;
+  set colminKm(int value) {
+    _minkm = value;
+  }
+  set colmaxKm(int value) {
+    _maxkm = value;
   }
 
-  String get hp => _hp;
-
-  set hp(String value) {
-    _hp = value;
-  } // Convert a Filter object into a Map object
-
-  String get colFuel => _fuel;
+   // Convert a Filter object into a Map object  
 
   set colFuel(String value) {
     _fuel = value;
   }
 
-  String get colTransmission => _transmission;
-
   set colTransmission(String value) {
     _transmission = value;
   }
-
-  String get color => _color;
+set hp(String value) {
+    _hp = value;
+  }
+  
 
   set color(String value) {
     _color = value;
+  }
+
+  set location(String value){
+    _location=value;
   }
 
   Map<String, dynamic> toMap() {
@@ -90,11 +103,14 @@ class Filtredb{
     map['minyil'] = _minYil;
     map['maxyil'] = _maxYil;
     map['isactive']=_isActive;
-    map['km']=_km;
+    
+    map['minkm']=_minkm;
+    map['maxkm']=_maxkm;
     map['fuel']=_fuel;
     map['transmission']=_transmission;
     map['hp']=_hp;
     map['color']=_color;
+    map['location']=_location;
 
 		return map;
 	}
@@ -109,11 +125,14 @@ class Filtredb{
     this._minYil = map['minyil'];
     this._maxYil = map['maxyil'];
     this._isActive = map['isactive'];
-    this._km = map['km'];
+
+    this._minkm = map['minkm'];
+    this._maxkm = map['maxkm'];
     this._fuel = map['fuel'];
     this._transmission = map['transmission'];
     this._hp=map['hp'];
     this._color=map['color'];
+    this._location=map['location'];
 	}
 
 
