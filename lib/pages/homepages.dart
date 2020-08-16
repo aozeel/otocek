@@ -61,10 +61,10 @@ class HomePageState extends State<HomePage> {
           if(result)
           ShowCaseWidget.of(myContext).startShowCase([_one]);
         });
-
-
     });
   }
+
+
   final PageStorageBucket bucket = PageStorageBucket();
 
   static int _selectedIndex = 0;
@@ -147,6 +147,9 @@ class HomePageState extends State<HomePage> {
         color: Colors.white, // Theme.of(context).primaryColor,
         shape: CircularNotchedRectangle(),
       );
+
+
+
 
           @override
           Widget build(BuildContext context) {

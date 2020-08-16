@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_facebook_login/flutter_facebook_login.dart';
-import 'dart:convert';
+import 'dart:convert' as convert;
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:newflutter/model/user.dart';
 import 'package:newflutter/services/auth_base.dart';
@@ -13,7 +14,7 @@ class FirebaseAuthService implements AutBase {
     if (user == null) {
       return null;
     } else {
-      return User(userID: user.uid, email: user.email,namesurname: namesurname);
+      return User(userID: user.uid, email: user.email,namesurname: user.displayName);
     }
   }
 
@@ -31,7 +32,7 @@ class FirebaseAuthService implements AutBase {
       return null;
     } else {
 
-      return User(userID: user.uid, email: profil["email"],namesurname: profil["name"]);
+      return User(userID: user.uid, email: profil['email'].toString(),namesurname: user.displayName);
     }
   }
 
@@ -93,10 +94,11 @@ class FirebaseAuthService implements AutBase {
       case FacebookLoginStatus.loggedIn:
         if (_faceResult.accessToken != null && _faceResult.accessToken.isValid()) {
           AuthResult _firebaseResult = await _firebaseAuth.signInWithCredential(FacebookAuthProvider.getCredential(accessToken: _faceResult.accessToken.token));
-          final graphResponse = await http.get('https://graph.facebook.com/v2.12/me?fields=name,first_name,last_name,email&access_token=${_faceResult.accessToken.token}');
-          dynamic profile = jsonDecode(graphResponse.body);
+          final graphResponse = await http.get('https://graph.facebook.com/v7.0/me?fields=name,first_name,last_name,email&access_token=${_faceResult.accessToken.token}');
+          var deger=convert.jsonDecode(graphResponse.body);
+          print("Profil bilgileri"+ deger.toString());
           FirebaseUser _user = _firebaseResult.user;
-          return _userFromFirebaseFacebook(_user,profile);
+          return _userFromFirebaseFacebook(_user,deger);
         } else {
            print("access token valid :" +
               _faceResult.accessToken.isValid().toString());
@@ -154,6 +156,8 @@ class FirebaseAuthService implements AutBase {
      return false;
    });
   }
+
+
 
 
 }

@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:newflutter/deneme.dart';
 import 'package:newflutter/model/filtredb.dart';
 import 'package:newflutter/pages/homepages.dart';
 import 'package:newflutter/utils/CityTown.dart';
@@ -166,8 +165,6 @@ class _FilterDetailState extends State<FilterDetail> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Constants.grey200,
-
-
       appBar: AppBar(
         title: Center(
           child: Text(

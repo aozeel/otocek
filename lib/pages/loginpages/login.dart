@@ -12,14 +12,14 @@ class GirisYap extends StatefulWidget {
   void _googleIleGiris(BuildContext context) async{
     final _usermodel=Provider.of<UserModel>(context,listen: false);
     User _user=await _usermodel.SignInWithGoogle();
-    if(_user !=null)
-    print("Oturum açan user id:" + _user.userID.toString());
+//    if(_user !=null)
+//    print("Oturum açan user id:" + _user.userID.toString());
   }
   void _facebookIleGiris(BuildContext context) async{
     final _usermodel=Provider.of<UserModel>(context,listen: false);
     User _user=await _usermodel.sigInWithFacebook();
-    if(_user !=null)
-      print("Oturum açan user id:" + _user.userID.toString());
+//    if(_user !=null)
+//      print("Oturum açan user id:" + _user.userID.toString());
   }
 
   @override
@@ -34,8 +34,8 @@ class GirisYapState extends State<GirisYap> {
   void _emailVeSifreIleGiris(String email,String password) async{
     final _usermodel=Provider.of<UserModel>(context,listen: false);
     User _user=await _usermodel.sigInWithEmailAndPassword(email, password);
-    if(_user !=null)
-      print("Oturum açan user id:" + _user.userID.toString());
+//    if(_user !=null)
+//      print("Oturum açan user id:" + _user.userID.toString());
 
     }
   void sifremiunuttum(String email) async{

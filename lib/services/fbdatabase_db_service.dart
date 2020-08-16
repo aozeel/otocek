@@ -17,9 +17,13 @@ class FirebaseDatabaseService implements DBase{
     await _firebaseDatabse.child("users").child(userid).once().then((DataSnapshot data){
       Map<String, dynamic> gelenveri = Map.from( data.value );
       user=User.fromMap(gelenveri);
-      print('Okunan user ${user.toString()}');
+//      print('Okunan user ${user.toString()}');
 
     });
+    print(user.userID);
+    print(user.namesurname);
+    print(user.profilurl);
+    print(user.email);
     return user;
   }
 

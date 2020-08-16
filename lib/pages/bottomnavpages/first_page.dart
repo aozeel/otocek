@@ -52,7 +52,7 @@ class FirstPageState extends State<FirstPage> {
     }
 
     //listeleme yok ise gelen sayfa
-    if (carList.length <= 0 /* && FiltrelemeDuzenleState.lengthofFilter()<= 0*/) {
+    if (carList.length <= 0 ) {
       return _buildEmptyFilter();
     }
     return SafeArea(
@@ -122,10 +122,8 @@ class FirstPageState extends State<FirstPage> {
     if(this.mounted){
       setState(() {
         _selectedChoice = choice;
-        //updateCarListView();
       });
     }
-
   }
 
   Widget _buildListView() {

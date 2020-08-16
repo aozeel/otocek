@@ -1,4 +1,4 @@
-import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:newflutter/model/user.dart';
 import 'package:newflutter/pages/profilenavpages/settings_page.dart';
@@ -20,17 +20,11 @@ class FifthPage extends StatefulWidget{
 
 class FifthPageState extends State<FifthPage> {
 
-  UserModel usermodel;
-  String profilphoto;
-
-
   @override
   Widget build(BuildContext context) {
-   usermodel=Provider.of<UserModel>(context,listen: false);
-   profilphoto=usermodel.user.profilurl;
-    final title = Constants.profil;
+   final usermodel=Provider.of<UserModel>(context);
     return Scaffold(
-      
+          key: widget.key,
           body:SafeArea(
             child: Container(
                 width: MediaQuery.of(context).size.width,
@@ -42,88 +36,97 @@ class FifthPageState extends State<FifthPage> {
                     Column(
                       mainAxisSize: MainAxisSize.max,
                       children: <Widget>[
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: <Widget>[
-                            Padding(
-                              padding: EdgeInsets.only(left: 10.0, right: 10.0,top: 15.0,bottom: 10.0),
-                              child: GestureDetector(
-                                onTap: () {
-                                },
-                                child: CircleAvatar(
-                                  radius: 75,
-                                  backgroundColor: Constants.white,
-                                  backgroundImage: NetworkImage(profilphoto.toString())
-
-                                ),
-                              ),
-
-                            ),
-
-                            Expanded(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
+                        FutureBuilder<User>(
+                            future: usermodel.readUser(usermodel.user.userID),
+                            builder:(context,snapshot){
+                              User user=snapshot.data;
+                              if(snapshot.connectionState==ConnectionState.waiting){
+                                return Center(child: CircularProgressIndicator(),);
+                              }
+                              return Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
                                 children: <Widget>[
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    children: <Widget>[
-                                      Text(
-                                        usermodel.user.namesurname.toString(),
-                                        style: TextStyle(
-                                          fontSize: 20.0,
-                                          fontWeight: FontWeight.bold,
-                                        ),
+                                  Padding(
+                                    padding: EdgeInsets.only(left: 10.0, right: 10.0,top: 15.0,bottom: 10.0),
+                                    child: GestureDetector(
+                                      onTap: () {
+                                      },
+                                      child: CircleAvatar(
+                                          radius: 75,
+                                          backgroundColor: Constants.white,
+                                          backgroundImage: NetworkImage(user.profilurl.toString())
+
                                       ),
-                                    ],
+                                    ),
+
                                   ),
 
-                                  SizedBox(height: 5.0),
-
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    children: <Widget>[
-                                      Text(
-                                        usermodel.user.email,
-                                        style: TextStyle(
-                                          fontSize: 14.0,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-
-                                  SizedBox(height: 20.0),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    children: <Widget>[
-                                      InkWell(
-                                        onTap: (){
-                                          Navigator.of(context).push(
-                                            MaterialPageRoute(
-                                              builder: (BuildContext context){
-                                                return new Container();//SplashScreen();
-                                              },
+                                  Expanded(
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: <Widget>[
+                                        Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          children: <Widget>[
+                                            Text(
+                                              user.namesurname.toString(),
+                                              style: TextStyle(
+                                                fontSize: 20.0,
+                                                fontWeight: FontWeight.bold,
+                                              ),
                                             ),
-                                          );
-                                        },
-                                        child: Text("Gol Paket",
-                                          style: TextStyle(
-                                            fontSize: 16.0,
-                                            fontWeight: FontWeight.w400,
-                                            color: Theme.of(context).accentColor,
-                                          ),
-                                          overflow: TextOverflow.ellipsis,
+                                          ],
                                         ),
-                                      ),
-                                    ],
-                                  ),
 
+                                        SizedBox(height: 5.0),
+
+                                        Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          children: <Widget>[
+                                            Text(
+                                              user.email,
+                                              style: TextStyle(
+                                                fontSize: 14.0,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+
+                                        SizedBox(height: 20.0),
+                                        Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          children: <Widget>[
+                                            InkWell(
+                                              onTap: (){
+                                                Navigator.of(context).push(
+                                                  MaterialPageRoute(
+                                                    builder: (BuildContext context){
+                                                      return new Container();//SplashScreen();
+                                                    },
+                                                  ),
+                                                );
+                                              },
+                                              child: Text("Gol Paket",
+                                                style: TextStyle(
+                                                  fontSize: 16.0,
+                                                  fontWeight: FontWeight.w400,
+                                                  color: Theme.of(context).accentColor,
+                                                ),
+                                                overflow: TextOverflow.ellipsis,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+
+                                      ],
+                                    ),
+                                    flex: 3,
+                                  ),
                                 ],
-                              ),
-                              flex: 3,
-                            ),
-                          ],
-                        ),
+                              );
+                            } ),
+
 
                         Divider(color: Constants.black,),
                         ListTile(

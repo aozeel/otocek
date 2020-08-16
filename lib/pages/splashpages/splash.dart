@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:newflutter/pages/splashpages/walkthrough.dart';
+import 'package:newflutter/pages/loginpages/landing_page.dart';
 import 'package:newflutter/utils/const.dart';
 
 
@@ -20,7 +20,7 @@ class _SplashScreenState extends State<SplashScreen> {
     Navigator.of(context).push(
       MaterialPageRoute(
         builder: (BuildContext context){
-          return Walkthrough();
+          return LandingPage();
         },
       ),
     );

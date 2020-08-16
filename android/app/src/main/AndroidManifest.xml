@@ -14,10 +14,10 @@
 
     <application
         android:name=".Application"
-        android:label="new_flutter"
+        android:label="cars"
         android:usesCleartextTraffic="true"
         android:requestLegacyExternalStorage="true"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/cars">
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"

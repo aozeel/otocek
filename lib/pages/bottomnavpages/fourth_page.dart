@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
-import 'package:newflutter/model/car.dart';
 import 'package:flutter_money_formatter/flutter_money_formatter.dart';
 import 'package:newflutter/model/cardb.dart';
 import 'package:newflutter/pages/vebview.dart';

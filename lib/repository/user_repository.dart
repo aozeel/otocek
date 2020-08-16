@@ -104,6 +104,9 @@ class UserRepository implements AutBase{
     return _profilFotoUrl;
    }
  }
+ Future<User> readUser(String user_id)async{
+  return await _firebaseDatabaseService.readUser(user_id);
+}
 
   Future<bool>  updateNameSurname(String userId, String yeniusername) async{
     if(appMode==AppMode.DEBUG){

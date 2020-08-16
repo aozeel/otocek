@@ -16,7 +16,7 @@ class User{
       'userId':userID,
       'email':email,
       'namesurname':namesurname,
-      'profilurl':profilurl ?? 'https://emrealtunbilek.com/wp-content/uploads/2016/10/apple-icon-72x72.png',//profilurl boş ise kullan degilse '' kullan
+      'profilurl':profilurl ?? 'https://cdn2.iconfinder.com/data/icons/people-80/96/Picture1-512.png',//profilurl boş ise kullan degilse '' kullan
       'phonenumber':phonenumber ?? '+90 536 536 36 36',
     };
 }

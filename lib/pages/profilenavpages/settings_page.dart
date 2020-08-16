@@ -1,12 +1,8 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:newflutter/pages/bottomnavpages/fifth_page.dart';
-import 'package:newflutter/pages/deneme.dart';
 import 'package:newflutter/utils/const.dart';
 import 'package:newflutter/viewmodel/usermodel.dart';
-import 'package:newflutter/widgets/alert_dialog.dart';
 import 'package:provider/provider.dart';
 import 'package:rich_alert/rich_alert.dart';
 

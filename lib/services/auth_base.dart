@@ -11,4 +11,5 @@ abstract class AutBase{
   Future<bool> forgotMyPassword(String email);
   Future<User> sigInWithEmailAndPassword(String email,String password);
   Future<User> createUserWithEmailAndPassword(String email,String password,String adsoyad);
+
 }

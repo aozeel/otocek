@@ -162,6 +162,9 @@ class UserModel with ChangeNotifier implements AutBase{
     var indirmeLinki=await _userRepository.uploadFile(userID,fileType,profilFoto);
     return indirmeLinki;
  }
+ Future<User> readUser(String user_id)async{
+   return await _userRepository.readUser(user_id);
+ }
 
   Future<bool> updateNameSurname(String userId,String yeniusername) async{
     state=ViewState.Busy;
